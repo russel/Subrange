@@ -1,0 +1,5 @@
+Import ( 'environment' )
+
+testProgram = environment.Program ( 'test.cpp' )
+
+Return ( 'testProgram' )
