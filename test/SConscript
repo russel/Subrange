@@ -1,5 +1,7 @@
+# -*- mode:python; coding:utf-8 -*-
+
 Import ( 'environment' )
 
-testProgram = environment.Program ( 'test.cpp' )
+program = environment.Program ( 'test.cpp' )
 
-Return ( 'testProgram' )
+Return ( 'program' )

@@ -1,3 +1,5 @@
+# -*- mode:python; coding:utf-8 -*-
+
 import os
 import platform
 import re
@@ -25,10 +27,8 @@ environment.SConsignFile ( '.sconsign_' + osName + '_' + archName )
 
 Export ( 'environment' )
 
-testProgram = SConscript ( testDirectory + '/SConscript' , build_dir = buildDirectory , duplicate = 0 )
+testProgram = SConscript ( testDirectory + '/SConscript' , variant_dir = buildDirectory , duplicate = 0 )
 
-runTest = Command ( 'runTest' , testProgram , 'LD_LIBRARY_PATH=' + libDirectory + ' ./$SOURCES' )
+Default ( Command ( 'runTest' , testProgram , 'LD_LIBRARY_PATH=' + libDirectory + ' ./$SOURCES' ) )
 
-Default ( runTest )
-
-Clean ( '.' , Glob ( '*/*~' ) + Glob ( '*~' ) + [ buildDirectory] )
+Clean ( '.' , Glob ( '*/*~' ) + Glob ( '*~' ) + [ buildDirectory ] )
