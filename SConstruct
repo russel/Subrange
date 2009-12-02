@@ -18,7 +18,7 @@ testDirectory = 'test'
 
 environment = Environment (
     CPPPATH = [ '#' + sourceDirectory , installBase + '/include' ] ,
-    CXXFLAGS = '-O3 -W -Wall -Wundef  -Wcast-align -Wno-unused-parameter -Wshadow -Wredundant-decls' ,
+    CXXFLAGS = [ '-O3' , '-W' , '-Wall' , '-Wundef' , '-Wcast-align' , '-Wno-unused-parameter' , '-Wshadow' , '-Wredundant-decls' ] ,
     LIBPATH = libDirectory ,
     LIBS = 'aeryn_core'
     )
