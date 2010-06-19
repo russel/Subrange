@@ -41,9 +41,15 @@ if isMissingStandardBoostOnLinux :
     #  Assume installation of Boost in my peronal library area.
     boostEnvironment.Append ( LIBPATH = [ libDirectory + '/Boost/lib' ] )
 
-Export ( 'aerynEnvironment' , 'boostEnvironment' )
+googleEnvironment = environment.Clone ( LIBS = [ 'gtest' , 'pthread' ] )
+googleEnvironment.Append (
+     CPPPATH = [ libDirectory + '/GoogleTest/include' ] ,
+     LIBPATH = [ libDirectory + '/GoogleTest/lib' ]
+     )
 
-aerynProgram , boostProgram = SConscript ( 'tests/SConscript' , variant_dir = buildDirectory , duplicate = 0 )
+Export ( 'aerynEnvironment' , 'boostEnvironment' , 'googleEnvironment' )
+
+aerynProgram , boostProgram , googleProgram = SConscript ( 'tests/SConscript' , variant_dir = buildDirectory , duplicate = 0 )
 
 aerynTest = Command ( 'test.Aeryn' , aerynProgram , ( 'DY' if osName == 'Darwin' else '' ) + 'LD_LIBRARY_PATH=' + libDirectory + ' ./$SOURCES' )
 
@@ -52,8 +58,10 @@ if isMissingStandardBoostOnLinux :
     boostCommand = ( 'DY' if osName == 'Darwin' else '' ) + 'LD_LIBRARY_PATH=' + libDirectory + '/Boost/lib ' + boostCommand
 boostTest = Command ( 'test.Boost' , boostProgram , boostCommand )
 
+googleTest = Command ( 'test.Google' , googleProgram , ( 'DY' if osName == 'Darwin' else '' ) + 'LD_LIBRARY_PATH=' + libDirectory + '/GoogleTest/lib ./$SOURCES' )
+
 Command ( 'docs' , docsConfigFile , 'doxygen ' + docsConfigFile )
 
-Default ( aerynTest , boostTest )
+Default ( aerynTest , boostTest , googleTest )
 
 Clean ( '.' , Glob ( '*~' ) + Glob ( '*/*~' ) + [ 'Documentation' , buildDirectory ] )
