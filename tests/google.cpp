@@ -40,1198 +40,1062 @@ enum Day { monday , tuesday , wednesday , thursday , friday , saturday , sunday 
 
 typedef subrange::subrange<subrange::ordinal_range<Day, monday, friday> > Weekday ;
 
-TEST( GoogleTest , createDefaultTestEnum )
-{
+TEST( GoogleTest , createDefaultTestEnum ) {
   Weekday a ;
-  EXPECT_TRUE( a == monday ) ;
+  ASSERT_EQ ( monday , a ) ;
 }
 
-TEST( GoogleTest , assignTestEnum )
-{
+TEST( GoogleTest , assignTestEnum ) {
   Weekday a ( monday ) ;
   Weekday b ( tuesday ) ;
   a = b ;
-  EXPECT_TRUE( a == b ) ;
+  ASSERT_TRUE ( a == b ) ;
 }
 
-TEST( GoogleTest , equalsTestEnum )
-{
+TEST( GoogleTest , equalsTestEnum ) {
   Weekday a ( monday ) ;
   Weekday b ( monday ) ;
-  EXPECT_TRUE( a == b ) ;
+  ASSERT_TRUE ( a == b ) ;
 }
 
-TEST( GoogleTest , notEqualsTestEnum )
-{
+TEST( GoogleTest , notEqualsTestEnum ) {
   Weekday a ( monday ) ;
   Weekday b ( tuesday ) ;
-  EXPECT_TRUE( a != b ) ;
+  ASSERT_TRUE ( a != b ) ;
 }
 
-TEST( GoogleTest , lessThanTestEnum )
-{
+TEST( GoogleTest , lessThanTestEnum ) {
   Weekday a ( monday ) ;
   Weekday b ( tuesday ) ;
-  EXPECT_TRUE( a < b ) ;
-  EXPECT_TRUE( ! ( a >= b ) ) ;
+  EXPECT_TRUE ( a < b ) ;
+  ASSERT_FALSE ( a >= b ) ;
 }
 
-TEST( GoogleTest , lessThanEqualToTestEnum )
-{
+TEST( GoogleTest , lessThanEqualToTestEnum ) {
   Weekday a ( monday ) ;
   Weekday b ( monday ) ;
-  EXPECT_TRUE( a <= b ) ;
-  EXPECT_TRUE( ! ( a > b ) ) ;
+  EXPECT_TRUE ( a <= b ) ;
+  ASSERT_FALSE ( a > b ) ;
 }
 
-TEST( GoogleTest , greaterThanTestEnum )
-{
+TEST( GoogleTest , greaterThanTestEnum ) {
   Weekday a ( monday ) ;
   Weekday b ( tuesday ) ;
-  EXPECT_TRUE( b > a ) ;
-  EXPECT_TRUE( ! ( b <= a ) ) ;
+  EXPECT_TRUE ( b > a ) ;
+  ASSERT_FALSE ( b <= a ) ;
 }
 
-TEST( GoogleTest , greaterThanEqualToTestEnum )
-{
+TEST( GoogleTest , greaterThanEqualToTestEnum ) {
   Weekday a ( monday ) ;
   Weekday b ( monday ) ;
-  EXPECT_TRUE( a >= b ) ;
-  EXPECT_TRUE( ! ( a < b ) ) ;
+  EXPECT_TRUE ( a >= b ) ;
+  ASSERT_FALSE ( a < b ) ;
 }
 
 
 typedef subrange::subrange<subrange::ordinal_range<short, 1, 99> > SubIntException ;
 
-TEST( GoogleTest , createDefaultTestIntException )
-{
+TEST( GoogleTest , createDefaultTestIntException ) {
   SubIntException a ;
-  EXPECT_TRUE( a == 1 ) ;
+  ASSERT_EQ ( 1 , a ) ;
 }
 
-TEST( GoogleTest , preincrementTestIntException )
-{
+TEST( GoogleTest , preincrementTestIntException ) {
   SubIntException a ( 9 ) ;
   ++a ;
-  EXPECT_TRUE( a == 10 ) ;
+  ASSERT_EQ ( 10 , a ) ;
 }
 
-TEST( GoogleTest , postincrementTestIntException )
-{
+TEST( GoogleTest , postincrementTestIntException ) {
   SubIntException a ( 9 ) ;
   a++ ;
-  EXPECT_TRUE( a == 10 ) ;
+  ASSERT_EQ ( 10 , a ) ;
 }
 
-TEST( GoogleTest , predecrementTestIntException )
-{
+TEST( GoogleTest , predecrementTestIntException ) {
   SubIntException a ( 9 ) ;
   --a ;
-  EXPECT_TRUE( a == 8 ) ;
+  ASSERT_EQ ( 8 , a ) ;
 }
 
-TEST( GoogleTest , postdecrementTestIntException )
-{
+TEST( GoogleTest , postdecrementTestIntException ) {
   SubIntException a ( 9 ) ;
   a-- ;
-  EXPECT_TRUE( a == 8 ) ;
+  ASSERT_EQ ( 8 , a ) ;
 }
 
-TEST( GoogleTest , assignLiteralTestIntException )
-{
+TEST( GoogleTest , assignLiteralTestIntException ) {
   SubIntException a ( 9 ) ;
   a = 20 ;
-  EXPECT_TRUE( a == 20 ) ;
-  EXPECT_THROW( a = 200 , subrange::range_error ) ;
-  EXPECT_THROW( a = -5 , subrange::range_error ) ;
+  ASSERT_EQ ( 20 , a ) ;
+  EXPECT_THROW ( a = 200 , subrange::range_error ) ;
+  ASSERT_THROW ( a = -5 , subrange::range_error ) ;
 }
 
-TEST( GoogleTest , assignTestIntException )
-{
+TEST( GoogleTest , assignTestIntException ) {
   SubIntException a ( 9 ) ;
   SubIntException b ( 20 ) ;
   a = b ;
-  EXPECT_TRUE( a == b ) ;
-  EXPECT_TRUE( a == 20 ) ;
+  EXPECT_TRUE ( a == b ) ;
+  ASSERT_EQ ( 20 , a ) ;
 }
 
-TEST( GoogleTest , addAssignTestIntException )
-{
+TEST( GoogleTest , addAssignTestIntException ) {
   SubIntException a ( 9 ) ;
   SubIntException b ( 20 ) ;
   a += b ;
-  EXPECT_TRUE( a == 29 ) ;
+  ASSERT_EQ ( 29 , a ) ;
   a += 10 ;
-  EXPECT_TRUE( a == 39 ) ;
+  ASSERT_EQ ( 39 , a ) ;
   a += -10 ;
-  EXPECT_TRUE( a == 29 ) ;
-  EXPECT_THROW( a += 200 , subrange::range_error ) ;
+  ASSERT_EQ ( 29 , a ) ;
+  ASSERT_THROW ( a += 200 , subrange::range_error ) ;
 }
 
-TEST( GoogleTest , subtractAssignTestIntException )
-{
+TEST( GoogleTest , subtractAssignTestIntException ) {
   SubIntException a ( 20 ) ;
   SubIntException b ( 9 ) ;
   a -= b ;
-  EXPECT_TRUE( a == 11 ) ;
+  ASSERT_EQ ( 11 , a ) ;
   a -= 5 ;
-  EXPECT_TRUE( a == 6 ) ;
+  ASSERT_EQ ( 6 , a ) ;
   a -= -5 ;
-  EXPECT_TRUE( a == 11 ) ;
-  EXPECT_THROW(b -= a, subrange::range_error) ;
+  ASSERT_EQ ( 11 , a ) ;
+  ASSERT_THROW ( b -= a , subrange::range_error ) ;
 }
 
-TEST( GoogleTest , multiplyAssignTestIntException )
-{
+TEST( GoogleTest , multiplyAssignTestIntException ) {
   SubIntException a ( 20 ) ;
   SubIntException b ( 3 ) ;
   a *= b ;
-  EXPECT_TRUE( a == 60 ) ;
-  EXPECT_THROW(a *= b, subrange::range_error) ;
+  ASSERT_EQ ( 60 , a ) ;
+  ASSERT_THROW ( a *= b , subrange::range_error ) ;
 }
 
-TEST( GoogleTest , divideAssignTestIntException )
-{
+TEST( GoogleTest , divideAssignTestIntException ) {
   SubIntException a ( 20 ) ;
   SubIntException b ( 3 ) ;
   a /= b ;
-  EXPECT_TRUE( a == 6 ) ;
+  ASSERT_EQ ( 6 , a ) ;
 }
 
-TEST( GoogleTest , remainderAssignTestIntException )
-{
+TEST( GoogleTest , remainderAssignTestIntException ) {
   SubIntException a ( 20 ) ;
   SubIntException b ( 3 ) ;
   a %= b ;
-  EXPECT_TRUE( a == 2 ) ;
+  ASSERT_EQ ( 2 , a ) ;
 }
 
-TEST( GoogleTest , xorAssignTestIntException )
-{
+TEST( GoogleTest , xorAssignTestIntException ) {
   SubIntException a ( 0x12 ) ;
   SubIntException b ( 0x03 ) ;
   a ^= b ;
-  EXPECT_TRUE( a == 0x11 ) ;
+  ASSERT_EQ ( 0x11 , a ) ;
 }
 
-TEST( GoogleTest , andAssignTestIntException )
-{
+TEST( GoogleTest , andAssignTestIntException ) {
   SubIntException a ( 0x12 ) ;
   SubIntException b ( 0x03 ) ;
   a &= b ;
-  EXPECT_TRUE( a == 0x02 ) ;
+  ASSERT_EQ ( 0x02 , a ) ;
 }
 
-TEST( GoogleTest , orAssignTestIntException )
-{
+TEST( GoogleTest , orAssignTestIntException ) {
   SubIntException a ( 0x12 ) ;
   SubIntException b ( 0x03 ) ;
   a |= b ;
-  EXPECT_TRUE( a == 0x13 ) ;
+  ASSERT_EQ ( 0x13 , a ) ;
 }
 
-TEST( GoogleTest , shiftLeftAssignTestIntException )
-{
+TEST( GoogleTest , shiftLeftAssignTestIntException ) {
   SubIntException a ( 0x12 ) ;
   a <<= 1 ;
-  EXPECT_TRUE( a == 0x24 ) ;
+  ASSERT_EQ ( 0x24 , a ) ;
 }
 
-TEST( GoogleTest , shiftRightAssignTestIntException )
-{
+TEST( GoogleTest , shiftRightAssignTestIntException ) {
   SubIntException a ( 0x12 ) ;
   a >>= 1 ;
-  EXPECT_TRUE( a == 0x09 ) ;
+  ASSERT_EQ ( 0x09 , a ) ;
 }
 
-TEST( GoogleTest , addTestIntException )
-{
+TEST( GoogleTest , addTestIntException ) {
   SubIntException a ( 9 ) ;
   SubIntException b ( 20 ) ;
   a = a + b ;
-  EXPECT_TRUE( a == 29 ) ;
+  ASSERT_EQ ( 29 , a ) ;
   a = a + 10 ;
-  EXPECT_TRUE( a == 39 ) ;
+  ASSERT_EQ ( 39 , a ) ;
   a = a + -10 ;
-  EXPECT_TRUE( a == 29 ) ;
+  ASSERT_EQ ( 29 , a ) ;
   a = 10 + a ;
-  EXPECT_TRUE( a == 39 ) ;
+  ASSERT_EQ ( 39 , a ) ;
   a = -10 + a ;
-  EXPECT_TRUE( a == 29 ) ;
+  ASSERT_EQ ( 29 , a ) ;
 }
 
-TEST( GoogleTest , subtractTestIntException )
-{
+TEST( GoogleTest , subtractTestIntException ) {
   SubIntException a ( 20 ) ;
   SubIntException b ( 9 ) ;
   a = a - b ;
-  EXPECT_TRUE( a == 11 ) ;
+  ASSERT_EQ ( 11 , a ) ;
 }
 
-TEST( GoogleTest , multiplyTestIntException )
-{
+TEST( GoogleTest , multiplyTestIntException ) {
   SubIntException a ( 20 ) ;
   SubIntException b ( 3 ) ;
   a = a * b ;
-  EXPECT_TRUE( a == 60 ) ;
+  ASSERT_EQ ( 60 , a ) ;
 }
 
-TEST( GoogleTest , divideTestIntException )
-{
+TEST( GoogleTest , divideTestIntException ) {
   SubIntException a ( 20 ) ;
   SubIntException b ( 3 ) ;
   a = a / b ;
-  EXPECT_TRUE( a == 6 ) ;
+  ASSERT_EQ ( 6 , a ) ;
 }
 
-TEST( GoogleTest , remainderTestIntException )
-{
+TEST( GoogleTest , remainderTestIntException ) {
   SubIntException a ( 20 ) ;
   SubIntException b ( 3 ) ;
   a = a % b ;
-  EXPECT_TRUE( a == 2 ) ;
+  ASSERT_EQ ( 2 , a ) ;
 }
 
-TEST( GoogleTest , xorTestIntException )
-{
+TEST( GoogleTest , xorTestIntException ) {
   SubIntException a ( 0x12 ) ;
   SubIntException b ( 0x03 ) ;
   a = a ^ b ;
-  EXPECT_TRUE( a == 0x11 ) ;
+  ASSERT_EQ ( 0x11 , a ) ;
 }
 
-TEST( GoogleTest , andTestIntException )
-{
+TEST( GoogleTest , andTestIntException ) {
   SubIntException a ( 0x12 ) ;
   SubIntException b ( 0x03 ) ;
   a = a & b ;
-  EXPECT_TRUE( a == 0x02 ) ;
+  ASSERT_EQ ( 0x02 , a ) ;
 }
 
-TEST( GoogleTest , orTestIntException )
-{
+TEST( GoogleTest , orTestIntException ) {
   SubIntException a ( 0x12 ) ;
   SubIntException b ( 0x03 ) ;
   a = a | b ;
-  EXPECT_TRUE( a == 0x13 ) ;
+  ASSERT_EQ ( 0x13 , a ) ;
 }
 
-TEST( GoogleTest , shiftLeftTestIntException )
-{
+TEST( GoogleTest , shiftLeftTestIntException ) {
   SubIntException a ( 0x12 ) ;
   a = a << 1 ;
-  EXPECT_TRUE( a == 0x24 ) ;
-  EXPECT_THROW( a = a << 3 , subrange::range_error ) ;
+  ASSERT_EQ ( 0x24 , a ) ;
+  ASSERT_THROW( a = a << 3 , subrange::range_error ) ;
 }
 
-TEST( GoogleTest , shiftRightTestIntException )
-{
+TEST( GoogleTest , shiftRightTestIntException ) {
   SubIntException a ( 0x12 ) ;
   a = a >> 1 ;
-  EXPECT_TRUE( a == 0x09 ) ;
-  EXPECT_THROW( a = a >> 5 , subrange::range_error ) ;
+  ASSERT_EQ ( 0x09 , a ) ;
+  ASSERT_THROW ( a = a >> 5 , subrange::range_error ) ;
 }
 
-TEST( GoogleTest , equalsTestIntException )
-{
+TEST( GoogleTest , equalsTestIntException ) {
   SubIntException a ( 9 ) ;
   SubIntException b ( 9 ) ;
-  EXPECT_TRUE( a == b ) ;
+  ASSERT_EQ ( b , a ) ;
 }
 
-TEST( GoogleTest , notEqualsTestIntException )
-{
+TEST( GoogleTest , notEqualsTestIntException ) {
   SubIntException a ( 9 ) ;
   SubIntException b ( 8 ) ;
-  EXPECT_TRUE( a != b ) ;
+  ASSERT_TRUE ( a != b ) ;
 }
 
-TEST( GoogleTest , lessThanTestIntException )
-{
+TEST( GoogleTest , lessThanTestIntException ) {
   SubIntException a ( 8 ) ;
   SubIntException b ( 9 ) ;
-  EXPECT_TRUE( a < b ) ;
-  EXPECT_TRUE( ! ( a >= b ) ) ;
+  ASSERT_TRUE ( a < b ) ;
+  ASSERT_FALSE ( a >= b ) ;
 }
 
-TEST( GoogleTest , lessThanEqualToTestIntException )
-{
+TEST( GoogleTest , lessThanEqualToTestIntException ) {
   SubIntException a ( 8 ) ;
   SubIntException b ( 8 ) ;
-  EXPECT_TRUE( a <= b ) ;
-  EXPECT_TRUE( ! ( a > b ) ) ;
+  ASSERT_TRUE ( a <= b ) ;
+  ASSERT_FALSE ( a > b ) ;
 }
 
-TEST( GoogleTest , greaterThanTestIntException )
-{
+TEST( GoogleTest , greaterThanTestIntException ) {
   SubIntException a ( 8 ) ;
   SubIntException b ( 9 ) ;
-  EXPECT_TRUE( b > a ) ;
-  EXPECT_TRUE( ! ( b <= a ) ) ;
+  ASSERT_TRUE ( b > a ) ;
+  ASSERT_TRUE ( ! ( b <= a ) ) ;
 }
 
-TEST( GoogleTest , greaterThanEqualToTestIntException )
-{
+TEST( GoogleTest , greaterThanEqualToTestIntException ) {
   SubIntException a ( 8 ) ;
   SubIntException b ( 8 ) ;
-  EXPECT_TRUE( a >= b ) ;
-  EXPECT_TRUE( ! ( a < b ) ) ;
+  ASSERT_TRUE ( a >= b ) ;
+  ASSERT_FALSE ( a < b ) ;
 }
+
 
 typedef subrange::subrange<subrange::ordinal_range<short, 1, 99>, subrange::modulo_arithmetic> SubIntModulo ;
 
-TEST( GoogleTest , createDefaultTestIntModulo )
-{
+TEST( GoogleTest , createDefaultTestIntModulo ) {
   SubIntModulo a ;
-  EXPECT_TRUE( a == 1 ) ;
+  ASSERT_EQ ( 1 , a ) ;
 }
 
-TEST( GoogleTest , preincrementTestIntModulo )
-{
+TEST( GoogleTest , preincrementTestIntModulo ) {
   SubIntModulo a ( 9 ) ;
   ++a ;
-  EXPECT_TRUE( a == 10 ) ;
+  ASSERT_EQ ( 10 , a ) ;
 }
 
-TEST( GoogleTest , postincrementTestIntModulo )
-{
+TEST( GoogleTest , postincrementTestIntModulo ) {
   SubIntModulo a ( 9 ) ;
   a++ ;
-  EXPECT_TRUE( a == 10 ) ;
+  ASSERT_EQ ( 10 , a ) ;
 }
 
-TEST( GoogleTest , predecrementTestIntModulo )
-{
+TEST( GoogleTest , predecrementTestIntModulo ) {
   SubIntModulo a ( 9 ) ;
   --a ;
-  EXPECT_TRUE( a == 8 ) ;
+  ASSERT_EQ ( 8 , a ) ;
 }
 
-TEST( GoogleTest , postdecrementTestIntModulo )
-{
+TEST( GoogleTest , postdecrementTestIntModulo ) {
   SubIntModulo a ( 9 ) ;
   a-- ;
-  EXPECT_TRUE( a == 8 ) ;
+  ASSERT_EQ ( 8 , a ) ;
 }
 
-TEST( GoogleTest , assignLiteralTestIntModulo )
-{
+TEST( GoogleTest , assignLiteralTestIntModulo ) {
   SubIntModulo a ( 9 ) ;
   a = 20 ;
-  EXPECT_TRUE( a == 20 ) ;
+  ASSERT_EQ ( 20 , a ) ;
   a = 200 ;
-  EXPECT_TRUE( a == 4 ) ;
+  ASSERT_EQ ( 4 , a ) ;
   a = -5 ;
-  EXPECT_TRUE( a == 93 ) ;
+  ASSERT_EQ ( 93 , a ) ;
 }
 
-TEST( GoogleTest , assignTestIntModulo )
-{
+TEST( GoogleTest , assignTestIntModulo ) {
   SubIntModulo a ( 9 ) ;
   SubIntModulo b ( 20 ) ;
   a = b ;
-  EXPECT_TRUE( a == b ) ;
-  EXPECT_TRUE( a == 20 ) ;
+  ASSERT_EQ ( b , a ) ;
+  ASSERT_EQ ( 20 , a ) ;
 }
 
-TEST( GoogleTest , addAssignTestIntModulo )
-{
+TEST( GoogleTest , addAssignTestIntModulo ) {
   SubIntModulo a ( 9 ) ;
   SubIntModulo b ( 20 ) ;
   a += b ;
-  EXPECT_TRUE( a == 29 ) ;
+  ASSERT_EQ ( 29 , a ) ;
   a += 10 ;
-  EXPECT_TRUE( a == 39 ) ;
+  ASSERT_EQ ( 39 , a ) ;
   a += -10 ;
-  EXPECT_TRUE( a == 29 ) ;
+  ASSERT_EQ ( 29 , a ) ;
   a += 200 ;
-  EXPECT_TRUE( a == 33 ) ;
+  ASSERT_EQ ( 33 , a ) ;
 }
 
-TEST( GoogleTest , subtractAssignTestIntModulo )
-{
+TEST( GoogleTest , subtractAssignTestIntModulo ) {
   SubIntModulo a ( 20 ) ;
   SubIntModulo b ( 9 ) ;
   a -= b ;
-  EXPECT_TRUE( a == 11 ) ;
+  ASSERT_EQ ( 11 , a ) ;
   a -= 5 ;
-  EXPECT_TRUE( a == 6 ) ;
+  ASSERT_EQ ( 6 , a ) ;
   a -= -5 ;
-  EXPECT_TRUE( a == 11 ) ;
+  ASSERT_EQ ( 11 , a ) ;
   b -= a ;
-  EXPECT_TRUE( b == 96 ) ;
+  ASSERT_EQ ( 96 , b ) ;
 }
 
-TEST( GoogleTest , multiplyAssignTestIntModulo )
-{
+TEST( GoogleTest , multiplyAssignTestIntModulo ) {
   SubIntModulo a ( 20 ) ;
   SubIntModulo b ( 3 ) ;
   a *= b ;
-  EXPECT_TRUE( a == 60 ) ;
+  ASSERT_EQ ( 60 , a ) ;
   a *= b ;
-  EXPECT_TRUE( a == 82 ) ;
+  ASSERT_EQ ( 82 , a ) ;
 }
 
-TEST( GoogleTest , divideAssignTestIntModulo )
-{
+TEST( GoogleTest , divideAssignTestIntModulo ) {
   SubIntModulo a ( 20 ) ;
   SubIntModulo b ( 3 ) ;
   a /= b ;
-  EXPECT_TRUE( a == 6 ) ;
+  ASSERT_EQ ( 6 , a ) ;
 }
 
-TEST( GoogleTest , remainderAssignTestIntModulo )
-{
+TEST( GoogleTest , remainderAssignTestIntModulo ) {
   SubIntModulo a ( 20 ) ;
   SubIntModulo b ( 3 ) ;
   a %= b ;
-  EXPECT_TRUE( a == 2 ) ;
+  ASSERT_EQ ( 2 , a ) ;
 }
 
-TEST( GoogleTest , xorAssignTestIntModulo )
-{
+TEST( GoogleTest , xorAssignTestIntModulo ) {
   SubIntModulo a ( 0x12 ) ;
   SubIntModulo b ( 0x03 ) ;
   a ^= b ;
-  EXPECT_TRUE( a == 0x11 ) ;
+  ASSERT_EQ ( 0x11 , a ) ;
 }
 
-TEST( GoogleTest , andAssignTestIntModulo )
-{
+TEST( GoogleTest , andAssignTestIntModulo ) {
   SubIntModulo a ( 0x12 ) ;
   SubIntModulo b ( 0x03 ) ;
   a &= b ;
-  EXPECT_TRUE( a == 0x02 ) ;
+  ASSERT_EQ ( 0x02 , a ) ;
 }
 
-TEST( GoogleTest , orAssignTestIntModulo )
-{
+TEST( GoogleTest , orAssignTestIntModulo ) {
   SubIntModulo a ( 0x12 ) ;
   SubIntModulo b ( 0x03 ) ;
   a |= b ;
-  EXPECT_TRUE( a == 0x13 ) ;
+  ASSERT_EQ ( 0x13 , a ) ;
 }
 
-TEST( GoogleTest , shiftLeftAssignTestIntModulo )
-{
+TEST( GoogleTest , shiftLeftAssignTestIntModulo ) {
   SubIntModulo a ( 0x12 ) ;
   a <<= 1 ;
-  EXPECT_TRUE( a == 0x24 ) ;
+  ASSERT_EQ ( 0x24 , a ) ;
 }
 
-TEST( GoogleTest , shiftRightAssignTestIntModulo )
-{
+TEST( GoogleTest , shiftRightAssignTestIntModulo ) {
   SubIntModulo a ( 0x12 ) ;
   a >>= 1 ;
-  EXPECT_TRUE( a == 0x09 ) ;
+  ASSERT_EQ ( 0x09 , a ) ;
 }
 
-TEST( GoogleTest , addTestIntModulo )
-{
+TEST( GoogleTest , addTestIntModulo ) {
   SubIntModulo a ( 9 ) ;
   SubIntModulo b ( 20 ) ;
   a = a + b ;
-  EXPECT_TRUE( a == 29 ) ;
+  ASSERT_EQ ( 29 , a ) ;
   a = a + 10 ;
-  EXPECT_TRUE( a == 39 ) ;
+  ASSERT_EQ ( 39 , a ) ;
   a = a + -10 ;
-  EXPECT_TRUE( a == 29 ) ;
+  ASSERT_EQ ( 29 , a ) ;
   a = 10 + a ;
-  EXPECT_TRUE( a == 39 ) ;
+  ASSERT_EQ ( 39 , a ) ;
   a = -10 + a ;
-  EXPECT_TRUE( a == 29 ) ;
+  ASSERT_EQ ( 29 , a ) ;
 }
 
-TEST( GoogleTest , subtractTestIntModulo )
-{
+TEST( GoogleTest , subtractTestIntModulo ) {
   SubIntModulo a ( 20 ) ;
   SubIntModulo b ( 9 ) ;
   a = a - b ;
-  EXPECT_TRUE( a == 11 ) ;
+  ASSERT_EQ ( 11 , a ) ;
 }
 
-TEST( GoogleTest , multiplyTestIntModulo )
-{
+TEST( GoogleTest , multiplyTestIntModulo ) {
   SubIntModulo a ( 20 ) ;
   SubIntModulo b ( 3 ) ;
   a = a * b ;
-  EXPECT_TRUE( a == 60 ) ;
+  ASSERT_EQ ( 60 , a ) ;
 }
 
-TEST( GoogleTest , divideTestIntModulo )
-{
+TEST( GoogleTest , divideTestIntModulo ) {
   SubIntModulo a ( 20 ) ;
   SubIntModulo b ( 3 ) ;
   a = a / b ;
-  EXPECT_TRUE( a == 6 ) ;
+  ASSERT_EQ ( 6 , a ) ;
 }
 
-TEST( GoogleTest , remainderTestIntModulo )
-{
+TEST( GoogleTest , remainderTestIntModulo ) {
   SubIntModulo a ( 20 ) ;
   SubIntModulo b ( 3 ) ;
   a = a % b ;
-  EXPECT_TRUE( a == 2 ) ;
+  ASSERT_EQ ( 2 , a ) ;
 }
 
-TEST( GoogleTest , xorTestIntModulo )
-{
+TEST( GoogleTest , xorTestIntModulo ) {
   SubIntModulo a ( 0x12 ) ;
   SubIntModulo b ( 0x03 ) ;
   a = a ^ b ;
-  EXPECT_TRUE( a == 0x11 ) ;
+  ASSERT_EQ ( 0x11 , a ) ;
 }
 
-TEST( GoogleTest , andTestIntModulo )
-{
+TEST( GoogleTest , andTestIntModulo ) {
   SubIntModulo a ( 0x12 ) ;
   SubIntModulo b ( 0x03 ) ;
   a = a & b ;
-  EXPECT_TRUE( a == 0x02 ) ;
+  ASSERT_EQ ( 0x02 , a ) ;
 }
 
-TEST( GoogleTest , orTestIntModulo )
-{
+TEST( GoogleTest , orTestIntModulo ) {
   SubIntModulo a ( 0x12 ) ;
   SubIntModulo b ( 0x03 ) ;
   a = a | b ;
-  EXPECT_TRUE( a == 0x13 ) ;
+  ASSERT_EQ ( 0x13 , a ) ;
 }
 
-TEST( GoogleTest , shiftLeftTestIntModulo )
-{
+TEST( GoogleTest , shiftLeftTestIntModulo ) {
   SubIntModulo a ( 0x12 ) ;
   a = a << 1 ;
-  EXPECT_TRUE( a == 0x24 ) ;
+  ASSERT_EQ ( 0x24 , a ) ;
   a = a << 3 ;
-  EXPECT_TRUE( a == 92 ) ;
+  ASSERT_EQ ( 92 , a ) ;
 }
 
-TEST( GoogleTest , shiftRightTestIntModulo )
-{
+TEST( GoogleTest , shiftRightTestIntModulo ) {
   SubIntModulo a ( 0x12 ) ;
   a = a >> 1 ;
-  EXPECT_TRUE( a == 0x09 ) ;
+  ASSERT_EQ ( 0x09 , a ) ;
   a = a >> 5 ;
-  EXPECT_TRUE( a == 98 ) ;
+  ASSERT_EQ ( 98 , a ) ;
 }
 
-TEST( GoogleTest , equalsTestIntModulo )
-{
+TEST( GoogleTest , equalsTestIntModulo ) {
   SubIntModulo a ( 9 ) ;
   SubIntModulo b ( 9 ) ;
-  EXPECT_TRUE( a == b ) ;
+  ASSERT_EQ ( b , a ) ;
 }
 
-TEST( GoogleTest , notEqualsTestIntModulo )
-{
+TEST( GoogleTest , notEqualsTestIntModulo ) {
   SubIntModulo a ( 9 ) ;
   SubIntModulo b ( 8 ) ;
-  EXPECT_TRUE( a != b ) ;
+  ASSERT_TRUE ( a != b ) ;
 }
 
-TEST( GoogleTest , lessThanTestIntModulo )
-{
+TEST( GoogleTest , lessThanTestIntModulo ) {
   SubIntModulo a ( 8 ) ;
   SubIntModulo b ( 9 ) ;
-  EXPECT_TRUE( a < b ) ;
-  EXPECT_TRUE( ! ( a >= b ) ) ;
+  ASSERT_TRUE ( a < b ) ;
+  ASSERT_FALSE ( a >= b ) ;
 }
 
-TEST( GoogleTest , lessThanEqualToTestIntModulo )
-{
+TEST( GoogleTest , lessThanEqualToTestIntModulo ) {
   SubIntModulo a ( 8 ) ;
   SubIntModulo b ( 8 ) ;
-  EXPECT_TRUE( a <= b ) ;
-  EXPECT_TRUE( ! ( a > b ) ) ;
+  ASSERT_TRUE ( a <= b ) ;
+  ASSERT_FALSE ( a > b ) ;
 }
 
-TEST( GoogleTest , greaterThanTestIntModulo )
-{
+TEST( GoogleTest , greaterThanTestIntModulo ) {
   SubIntModulo a ( 8 ) ;
   SubIntModulo b ( 9 ) ;
-  EXPECT_TRUE( b > a ) ;
-  EXPECT_TRUE( ! ( b <= a ) ) ;
+  ASSERT_TRUE ( b > a ) ;
+  ASSERT_FALSE ( b <= a ) ;
 }
 
-TEST( GoogleTest , greaterThanEqualToTestIntModulo )
-{
+TEST( GoogleTest , greaterThanEqualToTestIntModulo ) {
   SubIntModulo a ( 8 ) ;
   SubIntModulo b ( 8 ) ;
-  EXPECT_TRUE( a >= b ) ;
-  EXPECT_TRUE( ! ( a < b ) ) ;
+  ASSERT_TRUE ( a >= b ) ;
+  ASSERT_FALSE ( a < b ) ;
 }
+
 
 typedef subrange::subrange<subrange::ordinal_range<short, 1, 99>, subrange::saturated_arithmetic> SubIntSaturated ;
 
-TEST( GoogleTest , createDefaultTestIntSaturated )
-{
+TEST( GoogleTest , createDefaultTestIntSaturated ) {
   SubIntSaturated a ;
-  EXPECT_TRUE( a == 1 ) ;
+  ASSERT_EQ ( 1 , a ) ;
 }
 
-TEST( GoogleTest , preincrementTestIntSaturated )
-{
+TEST( GoogleTest , preincrementTestIntSaturated ) {
   SubIntSaturated a ( 9 ) ;
   ++a ;
-  EXPECT_TRUE( a == 10 ) ;
+  ASSERT_EQ ( 10 , a ) ;
 }
 
-TEST( GoogleTest , postincrementTestIntSaturated )
-{
+TEST( GoogleTest , postincrementTestIntSaturated ) {
   SubIntSaturated a ( 9 ) ;
   a++ ;
-  EXPECT_TRUE( a == 10 ) ;
+  ASSERT_EQ ( 10 , a ) ;
 }
 
-TEST( GoogleTest , predecrementTestIntSaturated )
-{
+TEST( GoogleTest , predecrementTestIntSaturated ) {
   SubIntSaturated a ( 9 ) ;
   --a ;
-  EXPECT_TRUE( a == 8 ) ;
+  ASSERT_EQ ( 8 , a ) ;
 }
 
-TEST( GoogleTest , postdecrementTestIntSaturated )
-{
+TEST( GoogleTest , postdecrementTestIntSaturated ) {
   SubIntSaturated a ( 9 ) ;
   a-- ;
-  EXPECT_TRUE( a == 8 ) ;
+  ASSERT_EQ ( 8 , a ) ;
 }
 
-TEST( GoogleTest , assignLiteralTestIntSaturated )
-{
+TEST( GoogleTest , assignLiteralTestIntSaturated ) {
   SubIntSaturated a ( 9 ) ;
   a = 20 ;
-  EXPECT_TRUE( a == 20 ) ;
+  ASSERT_EQ ( 20 , a ) ;
   a = 200 ;
-  EXPECT_TRUE( a == 99 ) ;
+  ASSERT_EQ ( 99 , a ) ;
   a = -5 ;
-  EXPECT_TRUE( a == 1 ) ;
+  ASSERT_EQ ( 1 , a ) ;
 }
 
-TEST( GoogleTest , assignTestIntSaturated )
-{
+TEST( GoogleTest , assignTestIntSaturated ) {
   SubIntSaturated a ( 9 ) ;
   SubIntSaturated b ( 20 ) ;
   a = b ;
-  EXPECT_TRUE( a == b ) ;
-  EXPECT_TRUE( a == 20 ) ;
+  ASSERT_EQ ( b , a ) ;
+  ASSERT_EQ ( 20 , a ) ;
 }
 
-TEST( GoogleTest , addAssignTestIntSaturated )
-{
+TEST( GoogleTest , addAssignTestIntSaturated ) {
   SubIntSaturated a ( 9 ) ;
   SubIntSaturated b ( 20 ) ;
   a += b ;
-  EXPECT_TRUE( a == 29 ) ;
+  ASSERT_EQ ( 29 , a ) ;
   a += 10 ;
-  EXPECT_TRUE( a == 39 ) ;
+  ASSERT_EQ ( 39 , a ) ;
   a += -10 ;
-  EXPECT_TRUE( a == 29 ) ;
+  ASSERT_EQ ( 29 , a ) ;
   a += 200 ;
-  EXPECT_TRUE( a == 99 ) ;
+  ASSERT_EQ ( 99 , a ) ;
 }
 
-TEST( GoogleTest , subtractAssignTestIntSaturated )
-{
+TEST( GoogleTest , subtractAssignTestIntSaturated ) {
   SubIntSaturated a ( 20 ) ;
   SubIntSaturated b ( 9 ) ;
   a -= b ;
-  EXPECT_TRUE( a == 11 ) ;
+  ASSERT_EQ ( 11 , a ) ;
   a -= 5 ;
-  EXPECT_TRUE( a == 6 ) ;
+  ASSERT_EQ ( 6 , a ) ;
   a -= -5 ;
-  EXPECT_TRUE( a == 11 ) ;
+  ASSERT_EQ ( 11 , a ) ;
   b -= a ;
-  EXPECT_TRUE( b == 1 ) ;
+  ASSERT_EQ ( 1 , b ) ;
 }
 
-TEST( GoogleTest , multiplyAssignTestIntSaturated )
-{
+TEST( GoogleTest , multiplyAssignTestIntSaturated ) {
   SubIntSaturated a ( 20 ) ;
   SubIntSaturated b ( 3 ) ;
   a *= b ;
-  EXPECT_TRUE( a == 60 ) ;
+  ASSERT_EQ ( 60 , a ) ;
   a *= b ;
-  EXPECT_TRUE( a == 99 ) ;
+  ASSERT_EQ ( 99 , a ) ;
 }
 
-TEST( GoogleTest , divideAssignTestIntSaturated )
-{
+TEST( GoogleTest , divideAssignTestIntSaturated ) {
   SubIntSaturated a ( 20 ) ;
   SubIntSaturated b ( 3 ) ;
   a /= b ;
-  EXPECT_TRUE( a == 6 ) ;
+  ASSERT_EQ ( 6 , a ) ;
 }
 
-TEST( GoogleTest , remainderAssignTestIntSaturated )
-{
+TEST( GoogleTest , remainderAssignTestIntSaturated ) {
   SubIntSaturated a ( 20 ) ;
   SubIntSaturated b ( 3 ) ;
   a %= b ;
-  EXPECT_TRUE( a == 2 ) ;
+  ASSERT_EQ ( 2 , a ) ;
 }
 
-TEST( GoogleTest , xorAssignTestIntSaturated )
-{
+TEST( GoogleTest , xorAssignTestIntSaturated ) {
   SubIntSaturated a ( 0x12 ) ;
   SubIntSaturated b ( 0x03 ) ;
   a ^= b ;
-  EXPECT_TRUE( a == 0x11 ) ;
+  ASSERT_EQ ( 0x11 , a ) ;
 }
 
-TEST( GoogleTest , andAssignTestIntSaturated )
-{
+TEST( GoogleTest , andAssignTestIntSaturated ) {
   SubIntSaturated a ( 0x12 ) ;
   SubIntSaturated b ( 0x03 ) ;
   a &= b ;
-  EXPECT_TRUE( a == 0x02 ) ;
+  ASSERT_EQ ( 0x02 , a ) ;
 }
 
-TEST( GoogleTest , orAssignTestIntSaturated )
-{
+TEST( GoogleTest , orAssignTestIntSaturated ) {
   SubIntSaturated a ( 0x12 ) ;
   SubIntSaturated b ( 0x03 ) ;
   a |= b ;
-  EXPECT_TRUE( a == 0x13 ) ;
+  ASSERT_EQ ( 0x13 , a ) ;
 }
 
-TEST( GoogleTest , shiftLeftAssignTestIntSaturated )
-{
+TEST( GoogleTest , shiftLeftAssignTestIntSaturated ) {
   SubIntSaturated a ( 0x12 ) ;
   a <<= 1 ;
-  EXPECT_TRUE( a == 0x24 ) ;
+  ASSERT_EQ ( 0x24 , a ) ;
 }
 
-TEST( GoogleTest , shiftRightAssignTestIntSaturated )
-{
+TEST( GoogleTest , shiftRightAssignTestIntSaturated ) {
   SubIntSaturated a ( 0x12 ) ;
   a >>= 1 ;
-  EXPECT_TRUE( a == 0x09 ) ;
+  ASSERT_EQ ( 0x09 , a ) ;
 }
 
-TEST( GoogleTest , addTestIntSaturated )
-{
+TEST( GoogleTest , addTestIntSaturated ) {
   SubIntSaturated a ( 9 ) ;
   SubIntSaturated b ( 20 ) ;
   a = a + b ;
-  EXPECT_TRUE( a == 29 ) ;
+  ASSERT_EQ ( 29 , a ) ;
   a = a + 10 ;
-  EXPECT_TRUE( a == 39 ) ;
+  ASSERT_EQ ( 39 , a ) ;
   a = a + -10 ;
-  EXPECT_TRUE( a == 29 ) ;
+  ASSERT_EQ ( 29 , a ) ;
   a = 10 + a ;
-  EXPECT_TRUE( a == 39 ) ;
+  ASSERT_EQ ( 39 , a ) ;
   a = -10 + a ;
-  EXPECT_TRUE( a == 29 ) ;
+  ASSERT_EQ ( 29 , a ) ;
 }
 
-TEST( GoogleTest , subtractTestIntSaturated )
-{
+TEST( GoogleTest , subtractTestIntSaturated ) {
   SubIntSaturated a ( 20 ) ;
   SubIntSaturated b ( 9 ) ;
   a = a - b ;
-  EXPECT_TRUE( a == 11 ) ;
+  ASSERT_EQ ( 11 , a ) ;
 }
 
-TEST( GoogleTest , multiplyTestIntSaturated )
-{
+TEST( GoogleTest , multiplyTestIntSaturated ) {
   SubIntSaturated a ( 20 ) ;
   SubIntSaturated b ( 3 ) ;
   a = a * b ;
-  EXPECT_TRUE( a == 60 ) ;
+  ASSERT_EQ ( 60 , a ) ;
 }
 
-TEST( GoogleTest , divideTestIntSaturated )
-{
+TEST( GoogleTest , divideTestIntSaturated ) {
   SubIntSaturated a ( 20 ) ;
   SubIntSaturated b ( 3 ) ;
   a = a / b ;
-  EXPECT_TRUE( a == 6 ) ;
+  ASSERT_EQ ( 6 , a ) ;
 }
 
-TEST( GoogleTest , remainderTestIntSaturated )
-{
+TEST( GoogleTest , remainderTestIntSaturated ) {
   SubIntSaturated a ( 20 ) ;
   SubIntSaturated b ( 3 ) ;
   a = a % b ;
-  EXPECT_TRUE( a == 2 ) ;
+  ASSERT_EQ ( 2 , a ) ;
 }
 
-TEST( GoogleTest , xorTestIntSaturated )
-{
+TEST( GoogleTest , xorTestIntSaturated ) {
   SubIntSaturated a ( 0x12 ) ;
   SubIntSaturated b ( 0x03 ) ;
   a = a ^ b ;
-  EXPECT_TRUE( a == 0x11 ) ;
+  ASSERT_EQ ( 0x11 , a ) ;
 }
 
-TEST( GoogleTest , andTestIntSaturated )
-{
+TEST( GoogleTest , andTestIntSaturated ) {
   SubIntSaturated a ( 0x12 ) ;
   SubIntSaturated b ( 0x03 ) ;
   a = a & b ;
-  EXPECT_TRUE( a == 0x02 ) ;
+  ASSERT_EQ ( 0x02 , a ) ;
 }
 
-TEST( GoogleTest , orTestIntSaturated )
-{
+TEST( GoogleTest , orTestIntSaturated ) {
   SubIntSaturated a ( 0x12 ) ;
   SubIntSaturated b ( 0x03 ) ;
   a = a | b ;
-  EXPECT_TRUE( a == 0x13 ) ;
+  ASSERT_EQ ( 0x13 , a ) ;
 }
 
-TEST( GoogleTest , shiftLeftTestIntSaturated )
-{
+TEST( GoogleTest , shiftLeftTestIntSaturated ) {
   SubIntSaturated a ( 0x12 ) ;
   a = a << 1 ;
-  EXPECT_TRUE( a == 0x24 ) ;
+  ASSERT_EQ ( 0x24 , a ) ;
   a = a << 3 ;
-  EXPECT_TRUE( a == 99 ) ;
+  ASSERT_EQ ( 99 , a ) ;
 }
 
-TEST( GoogleTest , shiftRightTestIntSaturated )
-{
+TEST( GoogleTest , shiftRightTestIntSaturated ) {
   SubIntSaturated a ( 0x12 ) ;
   a = a >> 1 ;
-  EXPECT_TRUE( a == 0x09 ) ;
+  ASSERT_EQ ( 0x09 , a ) ;
   a = a >> 5 ;
-  EXPECT_TRUE( a == 1 ) ;
+  ASSERT_EQ ( 1 , a ) ;
 }
 
-TEST( GoogleTest , equalsTestIntSaturated )
-{
+TEST( GoogleTest , equalsTestIntSaturated ) {
   SubIntSaturated a ( 9 ) ;
   SubIntSaturated b ( 9 ) ;
-  EXPECT_TRUE( a == b ) ;
+  ASSERT_EQ ( b , a ) ;
 }
 
-TEST( GoogleTest , notEqualsTestIntSaturated )
-{
+TEST( GoogleTest , notEqualsTestIntSaturated ) {
   SubIntSaturated a ( 9 ) ;
   SubIntSaturated b ( 8 ) ;
-  EXPECT_TRUE( a != b ) ;
+  ASSERT_TRUE ( a != b ) ;
 }
 
-TEST( GoogleTest , lessThanTestIntSaturated )
-{
+TEST( GoogleTest , lessThanTestIntSaturated ) {
   SubIntSaturated a ( 8 ) ;
   SubIntSaturated b ( 9 ) ;
-  EXPECT_TRUE( a < b ) ;
-  EXPECT_TRUE( ! ( a >= b ) ) ;
+  ASSERT_TRUE ( a < b ) ;
+  ASSERT_FALSE ( a >= b ) ;
 }
 
-TEST( GoogleTest , lessThanEqualToTestIntSaturated )
-{
+TEST( GoogleTest , lessThanEqualToTestIntSaturated ) {
   SubIntSaturated a ( 8 ) ;
   SubIntSaturated b ( 8 ) ;
-  EXPECT_TRUE( a <= b ) ;
-  EXPECT_TRUE( ! ( a > b ) ) ;
+  ASSERT_TRUE ( a <= b ) ;
+  ASSERT_FALSE ( a > b ) ;
 }
 
-TEST( GoogleTest , greaterThanTestIntSaturated )
-{
+TEST( GoogleTest , greaterThanTestIntSaturated ) {
   SubIntSaturated a ( 8 ) ;
   SubIntSaturated b ( 9 ) ;
-  EXPECT_TRUE( b > a ) ;
-  EXPECT_TRUE( ! ( b <= a ) ) ;
+  ASSERT_TRUE ( b > a ) ;
+  ASSERT_FALSE ( b <= a ) ;
 }
 
-TEST( GoogleTest , greaterThanEqualToTestIntSaturated )
-{
+TEST( GoogleTest , greaterThanEqualToTestIntSaturated ) {
   SubIntSaturated a ( 8 ) ;
   SubIntSaturated b ( 8 ) ;
-  EXPECT_TRUE( a >= b ) ;
-  EXPECT_TRUE( ! ( a < b ) ) ;
+  ASSERT_TRUE ( a >= b ) ;
+  ASSERT_FALSE ( a < b ) ;
 }
+
 
 typedef subrange::ordinal_range<short, 1, 99> RangeTraits ;
 typedef subrange::subrange<RangeTraits, subrange::NaN_arithmetic> SubIntNaN ;
 
 inline bool isNaN(const SubIntNaN & s) { return subrange::NaN_arithmetic<RangeTraits>::isNaN(s) ; }
 
-TEST( GoogleTest , createDefaultTestIntNaN )
-{
+TEST( GoogleTest , createDefaultTestIntNaN ) {
   SubIntNaN a ;
-  EXPECT_TRUE( a == 1 ) ;
+  ASSERT_EQ ( 1 , a ) ;
 }
 
-TEST( GoogleTest , preincrementTestIntNaN )
-{
+TEST( GoogleTest , preincrementTestIntNaN ) {
   SubIntNaN a ( 9 ) ;
   ++a ;
-  EXPECT_TRUE( a == 10 ) ;
+  ASSERT_EQ ( 10 , a ) ;
 }
 
-TEST( GoogleTest , postincrementTestIntNaN )
-{
+TEST( GoogleTest , postincrementTestIntNaN ) {
   SubIntNaN a ( 9 ) ;
   a++ ;
-  EXPECT_TRUE( a == 10 ) ;
+  ASSERT_EQ ( 10 , a ) ;
 }
 
-TEST( GoogleTest , predecrementTestIntNaN )
-{
+TEST( GoogleTest , predecrementTestIntNaN ) {
   SubIntNaN a ( 9 ) ;
   --a ;
-  EXPECT_TRUE( a == 8 ) ;
+  ASSERT_EQ ( 8 , a ) ;
 }
 
-TEST( GoogleTest , postdecrementTestIntNaN )
-{
+TEST( GoogleTest , postdecrementTestIntNaN ) {
   SubIntNaN a ( 9 ) ;
   a-- ;
-  EXPECT_TRUE( a == 8 ) ;
+  ASSERT_EQ ( 8 , a ) ;
 }
 
-TEST( GoogleTest , assignLiteralTestIntNaN )
-{
+TEST( GoogleTest , assignLiteralTestIntNaN ) {
   SubIntNaN a ( 9 ) ;
   a = 20 ;
-  EXPECT_TRUE( a == 20 ) ;
+  ASSERT_EQ ( 20 , a ) ;
   a = 200 ;
-  EXPECT_TRUE( isNaN ( a ) ) ;
+  ASSERT_TRUE ( isNaN ( a ) ) ;
   a = -5 ;
-  EXPECT_TRUE( isNaN ( a ) ) ;
+  ASSERT_TRUE ( isNaN ( a ) ) ;
 }
 
-TEST( GoogleTest , assignTestIntNaN )
-{
+TEST( GoogleTest , assignTestIntNaN ) {
   SubIntNaN a ( 9 ) ;
   SubIntNaN b ( 20 ) ;
   a = b ;
-  EXPECT_TRUE( a == b ) ;
-  EXPECT_TRUE( a == 20 ) ;
+  ASSERT_EQ ( b , a ) ;
+  ASSERT_EQ ( 20 , a ) ;
 }
 
-TEST( GoogleTest , addAssignTestIntNaN )
-{
+TEST( GoogleTest , addAssignTestIntNaN ) {
   SubIntNaN a ( 9 ) ;
   SubIntNaN b ( 20 ) ;
   a += b ;
-  EXPECT_TRUE( a == 29 ) ;
+  ASSERT_EQ ( 29 , a ) ;
   a += 10 ;
-  EXPECT_TRUE( a == 39 ) ;
+  ASSERT_EQ ( 39 , a ) ;
   a += -10 ;
-  EXPECT_TRUE( a == 29 ) ;
+  ASSERT_EQ ( 29 , a ) ;
   a += 200 ;
-  EXPECT_TRUE( isNaN ( a ) ) ;
+  ASSERT_TRUE ( isNaN ( a ) ) ;
 }
 
-TEST( GoogleTest , subtractAssignTestIntNaN )
-{
+TEST( GoogleTest , subtractAssignTestIntNaN ) {
   SubIntNaN a ( 20 ) ;
   SubIntNaN b ( 9 ) ;
   a -= b ;
-  EXPECT_TRUE( a == 11 ) ;
+  ASSERT_EQ ( 11 , a ) ;
   a -= 5 ;
-  EXPECT_TRUE( a == 6 ) ;
+  ASSERT_EQ ( 6 , a ) ;
   a -= -5 ;
-  EXPECT_TRUE( a == 11 ) ;
+  ASSERT_EQ ( 11 , a ) ;
   b -= a ;
-  EXPECT_TRUE( isNaN ( b ) ) ;
+  ASSERT_TRUE ( isNaN ( b ) ) ;
 }
 
-TEST( GoogleTest , multiplyAssignTestIntNaN )
-{
+TEST( GoogleTest , multiplyAssignTestIntNaN ) {
   SubIntNaN a ( 20 ) ;
   SubIntNaN b ( 3 ) ;
   a *= b ;
-  EXPECT_TRUE( a == 60 ) ;
+  ASSERT_EQ ( 60 , a ) ;
   a *= b ;
-  EXPECT_TRUE( isNaN ( a ) ) ;
+  ASSERT_TRUE ( isNaN ( a ) ) ;
 }
 
-TEST( GoogleTest , divideAssignTestIntNaN )
-{
+TEST( GoogleTest , divideAssignTestIntNaN ) {
   SubIntNaN a ( 20 ) ;
   SubIntNaN b ( 3 ) ;
   a /= b ;
-  EXPECT_TRUE( a == 6 ) ;
+  ASSERT_EQ ( 6 , a ) ;
 }
 
-TEST( GoogleTest , remainderAssignTestIntNaN )
-{
+TEST( GoogleTest , remainderAssignTestIntNaN ) {
   SubIntNaN a ( 20 ) ;
   SubIntNaN b ( 3 ) ;
   a %= b ;
-  EXPECT_TRUE( a == 2 ) ;
+  ASSERT_EQ ( 2 , a ) ;
 }
 
-TEST( GoogleTest , xorAssignTestIntNaN )
-{
+TEST( GoogleTest , xorAssignTestIntNaN ) {
   SubIntNaN a ( 0x12 ) ;
   SubIntNaN b ( 0x03 ) ;
   a ^= b ;
-  EXPECT_TRUE( a == 0x11 ) ;
+  ASSERT_EQ ( 0x11 , a ) ;
 }
 
-TEST( GoogleTest , andAssignTestIntNaN )
-{
+TEST( GoogleTest , andAssignTestIntNaN ) {
   SubIntNaN a ( 0x12 ) ;
   SubIntNaN b ( 0x03 ) ;
   a &= b ;
-  EXPECT_TRUE( a == 0x02 ) ;
+  ASSERT_EQ ( 0x02 , a ) ;
 }
 
-TEST( GoogleTest , orAssignTestIntNaN )
-{
+TEST( GoogleTest , orAssignTestIntNaN ) {
   SubIntNaN a ( 0x12 ) ;
   SubIntNaN b ( 0x03 ) ;
   a |= b ;
-  EXPECT_TRUE( a == 0x13 ) ;
+  ASSERT_EQ ( 0x13 , a ) ;
 }
 
-TEST( GoogleTest , shiftLeftAssignTestIntNaN )
-{
+TEST( GoogleTest , shiftLeftAssignTestIntNaN ) {
   SubIntNaN a ( 0x12 ) ;
   a <<= 1 ;
-  EXPECT_TRUE( a == 0x24 ) ;
+  ASSERT_EQ ( 0x24 , a ) ;
 }
 
-TEST( GoogleTest , shiftRightAssignTestIntNaN )
-{
+TEST( GoogleTest , shiftRightAssignTestIntNaN ) {
   SubIntNaN a ( 0x12 ) ;
   a >>= 1 ;
-  EXPECT_TRUE( a == 0x09 ) ;
+  ASSERT_EQ ( 0x09 , a ) ;
 }
 
-TEST( GoogleTest , addTestIntNaN )
-{
+TEST( GoogleTest , addTestIntNaN ) {
   SubIntNaN a ( 9 ) ;
   SubIntNaN b ( 20 ) ;
   a = a + b ;
-  EXPECT_TRUE( a == 29 ) ;
+  ASSERT_EQ ( 29 , a ) ;
   a = a + 10 ;
-  EXPECT_TRUE( a == 39 ) ;
+  ASSERT_EQ ( 39 , a ) ;
   a = a + -10 ;
-  EXPECT_TRUE( a == 29 ) ;
+  ASSERT_EQ ( 29 , a ) ;
   a = 10 + a ;
-  EXPECT_TRUE( a == 39 ) ;
+  ASSERT_EQ ( 39 , a ) ;
   a = -10 + a ;
-  EXPECT_TRUE( a == 29 ) ;
+  ASSERT_EQ ( 29 , a ) ;
 }
 
-TEST( GoogleTest , subtractTestIntNaN )
-{
+TEST( GoogleTest , subtractTestIntNaN ) {
   SubIntNaN a ( 20 ) ;
   SubIntNaN b ( 9 ) ;
   a = a - b ;
-  EXPECT_TRUE( a == 11 ) ;
+  ASSERT_EQ ( 11 , a ) ;
 }
 
-TEST( GoogleTest , multiplyTestIntNaN )
-{
+TEST( GoogleTest , multiplyTestIntNaN ) {
   SubIntNaN a ( 20 ) ;
   SubIntNaN b ( 3 ) ;
   a = a * b ;
-  EXPECT_TRUE( a == 60 ) ;
+  ASSERT_EQ ( 60 , a ) ;
 }
 
-TEST( GoogleTest , divideTestIntNaN )
-{
+TEST( GoogleTest , divideTestIntNaN ) {
   SubIntNaN a ( 20 ) ;
   SubIntNaN b ( 3 ) ;
   a = a / b ;
-  EXPECT_TRUE( a == 6 ) ;
+  ASSERT_EQ ( 6 , a ) ;
 }
 
-TEST( GoogleTest , remainderTestIntNaN )
-{
+TEST( GoogleTest , remainderTestIntNaN ) {
   SubIntNaN a ( 20 ) ;
   SubIntNaN b ( 3 ) ;
   a = a % b ;
-  EXPECT_TRUE( a == 2 ) ;
+  ASSERT_EQ ( 2 , a ) ;
 }
 
-TEST( GoogleTest , xorTestIntNaN )
-{
+TEST( GoogleTest , xorTestIntNaN ) {
   SubIntNaN a ( 0x12 ) ;
   SubIntNaN b ( 0x03 ) ;
   a = a ^ b ;
-  EXPECT_TRUE( a == 0x11 ) ;
+  ASSERT_EQ ( 0x11 , a ) ;
 }
 
-TEST( GoogleTest , andTestIntNaN )
-{
+TEST( GoogleTest , andTestIntNaN ) {
   SubIntNaN a ( 0x12 ) ;
   SubIntNaN b ( 0x03 ) ;
   a = a & b ;
-  EXPECT_TRUE( a == 0x02 ) ;
+  ASSERT_EQ ( 0x02 , a ) ;
 }
 
-TEST( GoogleTest , orTestIntNaN )
-{
+TEST( GoogleTest , orTestIntNaN ) {
   SubIntNaN a ( 0x12 ) ;
   SubIntNaN b ( 0x03 ) ;
   a = a | b ;
-  EXPECT_TRUE( a == 0x13 ) ;
+  ASSERT_EQ ( 0x13 , a ) ;
 }
 
-TEST( GoogleTest , shiftLeftTestIntNaN )
-{
+TEST( GoogleTest , shiftLeftTestIntNaN ) {
   SubIntNaN a ( 0x12 ) ;
   a = a << 1 ;
-  EXPECT_TRUE( a == 0x24 ) ;
+  ASSERT_EQ ( 0x24 , a ) ;
   a = a << 3 ;
-  EXPECT_TRUE( isNaN ( a ) ) ;
+  ASSERT_TRUE ( isNaN ( a ) ) ;
 }
 
-TEST( GoogleTest , shiftRightTestIntNaN )
-{
+TEST( GoogleTest , shiftRightTestIntNaN ) {
   SubIntNaN a ( 0x12 ) ;
   a = a >> 1 ;
-  EXPECT_TRUE( a == 0x09 ) ;
+  ASSERT_EQ ( 0x09 , a ) ;
   a = a >> 5 ;
-  EXPECT_TRUE( isNaN ( a ) ) ;
+  ASSERT_TRUE ( isNaN ( a ) ) ;
 }
 
-TEST( GoogleTest , equalsTestIntNaN )
-{
+TEST( GoogleTest , equalsTestIntNaN ) {
   SubIntNaN a ( 9 ) ;
   SubIntNaN b ( 9 ) ;
-  EXPECT_TRUE( a == b ) ;
+  ASSERT_EQ ( b , a ) ;
 }
 
-TEST( GoogleTest , notEqualsTestIntNaN )
-{
+TEST( GoogleTest , notEqualsTestIntNaN ) {
   SubIntNaN a ( 9 ) ;
   SubIntNaN b ( 8 ) ;
-  EXPECT_TRUE( a != b ) ;
+  ASSERT_TRUE ( a != b ) ;
 }
 
-TEST( GoogleTest , lessThanTestIntNaN )
-{
+TEST( GoogleTest , lessThanTestIntNaN ) {
   SubIntNaN a ( 8 ) ;
   SubIntNaN b ( 9 ) ;
-  EXPECT_TRUE( a < b ) ;
-  EXPECT_TRUE( ! ( a >= b ) ) ;
+  ASSERT_TRUE ( a < b ) ;
+  ASSERT_FALSE ( a >= b ) ;
 }
 
-TEST( GoogleTest , lessThanEqualToTestIntNaN )
-{
+TEST( GoogleTest , lessThanEqualToTestIntNaN ) {
   SubIntNaN a ( 8 ) ;
   SubIntNaN b ( 8 ) ;
-  EXPECT_TRUE( a <= b ) ;
-  EXPECT_TRUE( ! ( a > b ) ) ;
+  ASSERT_TRUE ( a <= b ) ;
+  ASSERT_FALSE ( a > b ) ;
 }
 
-TEST( GoogleTest , greaterThanTestIntNaN )
-{
+TEST( GoogleTest , greaterThanTestIntNaN ) {
   SubIntNaN a ( 8 ) ;
   SubIntNaN b ( 9 ) ;
-  EXPECT_TRUE( b > a ) ;
-  EXPECT_TRUE( ! ( b <= a ) ) ;
+  ASSERT_TRUE ( b > a ) ;
+  ASSERT_FALSE ( b <= a ) ;
 }
 
-TEST( GoogleTest , greaterThanEqualToTestIntNaN )
-{
+TEST( GoogleTest , greaterThanEqualToTestIntNaN ) {
   SubIntNaN a ( 8 ) ;
   SubIntNaN b ( 8 ) ;
-  EXPECT_TRUE( a >= b ) ;
-  EXPECT_TRUE( ! ( a < b ) ) ;
+  ASSERT_TRUE ( a >= b ) ;
+  ASSERT_FALSE ( a < b ) ;
 }
+
 
 //  Can't use any templates for defining floating point range traits as C++ forbids template parameters
 //  that are not of ordinal type so we haver to do that manually.
@@ -1246,186 +1110,166 @@ class float_range {
 
 typedef subrange::subrange<float_range> SubFloat ;
 
-TEST( GoogleTest , createDefaultTestFloat )
-{
+TEST( GoogleTest , createDefaultTestFloat ) {
   SubFloat a ;
-  EXPECT_TRUE( a == 1.0 ) ;
+  ASSERT_EQ ( 1.0 , a ) ;
 }
 
-TEST( GoogleTest , preincrementTestFloat )
-{
+TEST( GoogleTest , preincrementTestFloat ) {
   SubFloat a ( 9.0 ) ;
   ++a ;
-  EXPECT_TRUE( a == 10.0 ) ;
+  ASSERT_EQ ( 10.0 , a ) ;
 }
 
-TEST( GoogleTest , postincrementTestFloat )
-{
+TEST( GoogleTest , postincrementTestFloat ) {
   SubFloat a ( 9.0 ) ;
   a++ ;
-  EXPECT_TRUE( a == 10.0 ) ;
+  ASSERT_EQ ( 10.0 , a ) ;
 }
 
-TEST( GoogleTest , predecrementTestFloat )
-{
+TEST( GoogleTest , predecrementTestFloat ) {
   SubFloat a ( 9.0 ) ;
   --a ;
-  EXPECT_TRUE( a == 8.0 ) ;
+  ASSERT_EQ ( 8.0 , a ) ;
 }
 
-TEST( GoogleTest , postdecrementTestFloat )
-{
+TEST( GoogleTest , postdecrementTestFloat ) {
   SubFloat a ( 9.0 ) ;
   a-- ;
-  EXPECT_TRUE( a == 8.0 ) ;
+  ASSERT_EQ ( 8.0 , a ) ;
 }
 
-TEST( GoogleTest , assignLiteralTestFloat )
-{
+TEST( GoogleTest , assignLiteralTestFloat ) {
   SubFloat a ( 9.0 ) ;
   a = 20.0 ;
-  EXPECT_TRUE( a == 20.0 ) ;
-  EXPECT_THROW( a = 200.0 , subrange::range_error ) ;
-  EXPECT_THROW( a = -5.0 , subrange::range_error ) ;
+  ASSERT_EQ ( 20.0 , a ) ;
+  ASSERT_THROW ( a = 200.0 , subrange::range_error ) ;
+  ASSERT_THROW ( a = -5.0 , subrange::range_error ) ;
 }
 
-TEST( GoogleTest , assignTestFloat )
-{
+TEST( GoogleTest , assignTestFloat ) {
   SubFloat a ( 9.0 ) ;
   SubFloat b ( 20.0 ) ;
   a = b ;
-  EXPECT_TRUE( a == b ) ;
-  EXPECT_TRUE( a == 20.0 ) ;
+  ASSERT_EQ ( b , a ) ;
+  ASSERT_EQ ( 20.0 , a ) ;
 }
 
-TEST( GoogleTest , addAssignTestFloat )
-{
+TEST( GoogleTest , addAssignTestFloat ) {
   SubFloat a ( 9.0 ) ;
   SubFloat b ( 20.0 ) ;
   a += b ;
-  EXPECT_TRUE( a == 29.0 ) ;
+  ASSERT_EQ ( 29.0 , a ) ;
   a += 10 ;
-  EXPECT_TRUE( a == 39.0 ) ;
+  ASSERT_EQ ( 39.0 , a ) ;
   a += -10 ;
-  EXPECT_TRUE( a == 29.0 ) ;
-  EXPECT_THROW( a += 200.0 , subrange::range_error ) ;
+  ASSERT_EQ ( 29.0 , a ) ;
+  ASSERT_THROW ( a += 200.0 , subrange::range_error ) ;
 }
 
-TEST( GoogleTest , subtractAssignTestFloat )
-{
+TEST( GoogleTest , subtractAssignTestFloat ) {
   SubFloat a ( 20.0 ) ;
   SubFloat b ( 9.0 ) ;
   a -= b ;
-  EXPECT_TRUE( a == 11.0 ) ;
+  ASSERT_EQ ( 11.0 , a ) ;
   a -= 5.0 ;
-  EXPECT_TRUE( a == 6.0 ) ;
+  ASSERT_EQ ( 6.0 , a ) ;
   a -= -5.0 ;
-  EXPECT_TRUE( a == 11.0 ) ;
-  EXPECT_THROW( b -= a , subrange::range_error ) ;
+  ASSERT_EQ ( 11.0 , a ) ;
+  ASSERT_THROW ( b -= a , subrange::range_error ) ;
 }
 
-TEST( GoogleTest , multiplyAssignTestFloat )
-{
+TEST( GoogleTest , multiplyAssignTestFloat ) {
   SubFloat a ( 20.0 ) ;
   SubFloat b ( 3.0 ) ;
   a *= b ;
-  EXPECT_TRUE( a == 60.0 ) ;
-  EXPECT_THROW( a *= b , subrange::range_error ) ;
+  ASSERT_EQ ( 60.0 , a ) ;
+  ASSERT_THROW ( a *= b , subrange::range_error ) ;
 }
 
-TEST( GoogleTest , divideAssignTestFloat )
-{
+TEST( GoogleTest , divideAssignTestFloat ) {
   SubFloat a ( 20.0 ) ;
   SubFloat b ( 4.0 ) ;
   a /= b ;
-  EXPECT_TRUE( a == 5.0 ) ;
+  ASSERT_EQ ( 5.0 , a ) ;
 }
 
-TEST( GoogleTest , addTestFloat )
-{
+TEST( GoogleTest , addTestFloat ) {
   SubFloat a ( 9.0 ) ;
   SubFloat b ( 20.0 ) ;
   a = a + b ;
-  EXPECT_TRUE( a == 29.0 ) ;
+  ASSERT_EQ ( 29.0 , a ) ;
   a = a + 10.0 ;
-  EXPECT_TRUE( a == 39.0 ) ;
+  ASSERT_EQ ( 39.0 , a ) ;
   a = a + -10.0 ;
-  EXPECT_TRUE( a == 29.0 ) ;
+  ASSERT_EQ ( 29.0 , a ) ;
   a = 10.0 + a ;
-  EXPECT_TRUE( a == 39.0 ) ;
+  ASSERT_EQ ( 39.0 , a ) ;
   a = -10.0 + a ;
-  EXPECT_TRUE( a == 29.0 ) ;
+  ASSERT_EQ ( 29.0 , a ) ;
 }
 
-TEST( GoogleTest , subtractTestFloat )
-{
+TEST( GoogleTest , subtractTestFloat ) {
   SubFloat a ( 20.0 ) ;
   SubFloat b ( 9.0 ) ;
   a = a - b ;
-  EXPECT_TRUE( a == 11.0 ) ;
+  ASSERT_EQ ( 11.0 , a ) ;
 }
 
-TEST( GoogleTest , multiplyTestFloat )
-{
+TEST( GoogleTest , multiplyTestFloat ) {
   SubFloat a ( 20.0 ) ;
   SubFloat b ( 3.0 ) ;
   a = a * b ;
-  EXPECT_TRUE( a == 60.0 ) ;
+  ASSERT_EQ ( 60.0 , a ) ;
 }
 
-TEST( GoogleTest , divideTestFloat )
-{
+TEST( GoogleTest , divideTestFloat ) {
   SubFloat a ( 20.0 ) ;
   SubFloat b ( 4.0 ) ;
   a = a / b ;
-  EXPECT_TRUE( a == 5.0 ) ;
+  ASSERT_EQ ( 5.0 , a ) ;
 }
 
-TEST( GoogleTest , equalsTestFloat )
-{
+TEST( GoogleTest , equalsTestFloat ) {
   SubFloat a ( 9.0 ) ;
   SubFloat b ( 9.0 ) ;
-  EXPECT_TRUE( a == b ) ;
+  ASSERT_EQ ( b , a ) ;
 }
 
-TEST( GoogleTest , notEqualsTestFloat )
-{
+TEST( GoogleTest , notEqualsTestFloat ) {
   SubFloat a ( 9.0 ) ;
   SubFloat b ( 8.0 ) ;
-  EXPECT_TRUE( a != b ) ;
+  ASSERT_TRUE ( a != b ) ;
 }
 
-TEST( GoogleTest , lessThanTestFloat )
-{
+TEST( GoogleTest , lessThanTestFloat ) {
   SubFloat a ( 8.0 ) ;
   SubFloat b ( 9.0 ) ;
-  EXPECT_TRUE( a < b ) ;
-  EXPECT_TRUE( ! ( a >= b ) ) ;
+  EXPECT_TRUE ( a < b ) ;
+  ASSERT_FALSE ( a >= b ) ;
 }
 
-TEST( GoogleTest , lessThanEqualToTestFloat )
-{
+TEST( GoogleTest , lessThanEqualToTestFloat ) {
   SubFloat a ( 8.0 ) ;
   SubFloat b ( 8.0 ) ;
-  EXPECT_TRUE( a <= b ) ;
-  EXPECT_TRUE( ! ( a > b ) ) ;
+  EXPECT_TRUE ( a <= b ) ;
+  ASSERT_FALSE ( a > b ) ;
 }
 
-TEST( GoogleTest , greaterThanTestFloat )
-{
+TEST( GoogleTest , greaterThanTestFloat ) {
   SubFloat a ( 8.0 ) ;
   SubFloat b ( 9.0 ) ;
-  EXPECT_TRUE( b > a ) ;
-  EXPECT_TRUE( ! ( b <= a ) ) ;
+  EXPECT_TRUE ( b > a ) ;
+  ASSERT_FALSE ( b <= a ) ;
 }
 
-TEST( GoogleTest , greaterThanEqualToTestFloat )
-{
+TEST( GoogleTest , greaterThanEqualToTestFloat ) {
   SubFloat a ( 8.0 ) ;
   SubFloat b ( 8.0 ) ;
-  EXPECT_TRUE( a >= b ) ;
-  EXPECT_TRUE( ! ( a < b ) ) ;
+  EXPECT_TRUE ( a >= b ) ;
+  ASSERT_FALSE ( a < b ) ;
 }
+
 
 int main ( int argc , char ** argv ) {
   ::testing::InitGoogleTest ( &argc , argv ) ;
