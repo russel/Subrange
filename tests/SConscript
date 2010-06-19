@@ -1,0 +1,8 @@
+# -*- mode:python; coding:utf-8; -*-
+
+Import ( 'aerynEnvironment' , 'boostEnvironment' )
+
+aerynTest = aerynEnvironment.Program ( 'aeryn.cpp' )
+boostTest = boostEnvironment.Program ( 'boost.cpp' )
+
+Return ( 'aerynTest' , 'boostTest' )
