@@ -15,8 +15,8 @@
  *  <p>Copyright (c) 2005,2010  Russel Winder.</p>
  *
  *  @author Russel Winder
- *  @version 1.1
- *  @date 2010-06-19 15:30+01:00
+ *  @version 1.2
+ *  @date 2010-06-19 18:30+01:00
  */
 
 #define BOOST_TEST_MODULE SubrangeTest_Boost
