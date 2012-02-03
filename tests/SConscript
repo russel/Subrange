@@ -1,9 +1,10 @@
 # -*- mode:python; coding:utf-8; -*-
 
-Import ( 'aerynEnvironment' , 'boostEnvironment' , 'googleEnvironment' )
+Import ( 'aerynEnvironment' , 'boostEnvironment' , 'googleEnvironment' , 'cuteEnvironment' )
 
 aerynTest = aerynEnvironment.Program ( 'aeryn.cpp' )
 boostTest = boostEnvironment.Program ( 'boost.cpp' )
 googleTest = googleEnvironment.Program ( 'google.cpp' )
+cuteTest = cuteEnvironment.Program ( 'cute.cpp' )
 
-Return ( 'aerynTest' , 'boostTest' , 'googleTest' )
+Return ( 'aerynTest' , 'boostTest' , 'googleTest' , 'cuteTest' )
