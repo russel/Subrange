@@ -131,7 +131,6 @@
 
 #include <limits>
 
-#include <boost/static_assert.hpp>
 #include <boost/type_traits.hpp>
 #include <boost/utility/enable_if.hpp>
 
@@ -150,7 +149,7 @@ class range_error : public std::exception { } ;
 template<typename HostType, HostType minimum, HostType maximum, typename ExceptionType = range_error>
 class ordinal_range {
  public:
-  BOOST_STATIC_ASSERT(minimum <= maximum) ;
+  static_assert(minimum <= maximum, "Minimum must be less than or equal to manimum.") ;
   typedef HostType value_type ;
   typedef ExceptionType exception_type ;
   static value_type min () { return minimum ; }
