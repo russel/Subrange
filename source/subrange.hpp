@@ -1,6 +1,6 @@
 //  A subrange type template for C++
 //
-//  Copyright (c) 2005 Russel Winder
+//  Copyright (c) 2005,2012 Russel Winder
 //
 //  Distributed under the Boost Software License, Version 1.0.  Reproduced here from
 //  http://www.boost.org/LICENSE_1_0.txt.
@@ -122,11 +122,11 @@
  *  http://aspn.activestate.com/ASPN/Mail/Message/boost/2040057) and the CheckedInt type by Hubert
  *  Matthews [Overload 58, Dec 2003].</p>
  *
- *  <p>Copyright (c) 2005  Russel Winder.</p>
+ *  <p>Copyright (c) 2005,2012  Russel Winder.</p>
  *
  *  @author Russel Winder
- *  @version 1.0
- *  @date 2005-02-07 18:38
+ *  @version 1.1
+ *  @date 2012-02-03T15:00
  */
 
 #include <limits>
