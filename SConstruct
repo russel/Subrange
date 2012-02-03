@@ -9,59 +9,50 @@ osName = unameResult[0]
 archName = unameResult[4].replace ( 'sun4u' , 'sparc' )
 archName = re.sub ( 'i.86' , 'ix86' , archName )
 
-installBase = os.environ [ 'HOME' ]
-libDirectory = installBase + '/lib.' + osName + '.' + archName
+homeDirectory = os.environ [ 'HOME' ]
+libDirectory = homeDirectory + '/lib.' + osName + '.' + archName
 
 buildDirectory = 'build_' + osName + '_' + archName
 
 docsConfigFile = 'doxygen.conf'
 
-isMissingStandardBoostOnLinux = osName == 'Linux' and not os.path.isdir ( '/usr/include/boost' )
-
 environment = Environment (
     CPPPATH = [ '#source' ] ,
-    CXXFLAGS = [ '-Wall' , '-Wundef' , '-Wshadow' , '-Wcast-align' , '-Wredundant-decls' ] ,
+    CXXFLAGS = [ '-Wall' , '-Wundef' , '-Wshadow' , '-Wcast-align' , '-Wredundant-decls' , '-std=c++0x' ] ,
     )
 environment.SConsignFile ( '.sconsign_' + osName + '_' + archName )
-#  Things may be supplied via MacPorts so add its include area.
+#  Things may be supplied via MacPorts on Mac OS X so add its include area.
 if osName == 'Darwin' :
      environment.Append ( CPPPATH = [ '/opt/local/include' ] )
-if isMissingStandardBoostOnLinux :
-    #  Assume installation of Boost in my peronal library area.
-    environment.Append ( CPPPATH = [ libDirectory + '/Boost/include' ] )
 
 aerynEnvironment = environment.Clone ( LIBS = [ 'aeryn_core' ] , LIBPATH = [ libDirectory ] )
-aerynEnvironment.Append ( CPPPATH = [ installBase + '/include' ] )
+aerynEnvironment.Append ( CPPPATH = [ homeDirectory + '/include' ] )
 
 boostEnvironment = environment.Clone ( LIBS = [ 'boost_unit_test_framework' ] )
 #  Things may be supplied via MacPorts so add its include area.
 if osName == 'Darwin' :
     boostEnvironment.Append ( LIBPATH = [ '/opt/local/lib' ] )
-if isMissingStandardBoostOnLinux :
-    #  Assume installation of Boost in my peronal library area.
-    boostEnvironment.Append ( LIBPATH = [ libDirectory + '/Boost/lib' ] )
 
 googleEnvironment = environment.Clone ( LIBS = [ 'gtest' , 'pthread' ] )
-googleEnvironment.Append (
-     CPPPATH = [ libDirectory + '/GoogleTest/include' ] ,
-     LIBPATH = [ libDirectory + '/GoogleTest/lib' ]
-     )
 
-Export ( 'aerynEnvironment' , 'boostEnvironment' , 'googleEnvironment' )
+cuteEnvironment = environment.Clone ( )
+cuteEnvironment.Append ( CPPPATH = [ homeDirectory + '/include' ] )
 
-aerynProgram , boostProgram , googleProgram = SConscript ( 'tests/SConscript' , variant_dir = buildDirectory , duplicate = 0 )
+Export ( 'aerynEnvironment' , 'boostEnvironment' , 'googleEnvironment' , 'cuteEnvironment' )
+
+aerynProgram , boostProgram , googleProgram , cuteProgram = SConscript ( 'tests/SConscript' , variant_dir = buildDirectory , duplicate = 0 )
 
 aerynTest = Command ( 'test.Aeryn' , aerynProgram , ( 'DY' if osName == 'Darwin' else '' ) + 'LD_LIBRARY_PATH=' + libDirectory + ' ./$SOURCES' )
 
 boostCommand = './$SOURCES'
-if isMissingStandardBoostOnLinux :
-    boostCommand = ( 'DY' if osName == 'Darwin' else '' ) + 'LD_LIBRARY_PATH=' + libDirectory + '/Boost/lib ' + boostCommand
 boostTest = Command ( 'test.Boost' , boostProgram , boostCommand )
 
 googleTest = Command ( 'test.Google' , googleProgram , ( 'DY' if osName == 'Darwin' else '' ) + 'LD_LIBRARY_PATH=' + libDirectory + '/GoogleTest/lib ./$SOURCES' )
 
+cuteTest = Command ( 'test.CUTE' , cuteProgram , './$SOURCE' )
+
 Command ( 'docs' , docsConfigFile , 'doxygen ' + docsConfigFile )
 
-Default ( aerynTest , boostTest , googleTest )
+Default ( aerynTest , boostTest , googleTest )#, cuteTest )
 
 Clean ( '.' , Glob ( '*~' ) + Glob ( '*/*~' ) + [ 'Documentation' , buildDirectory ] )
