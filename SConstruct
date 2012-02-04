@@ -9,6 +9,12 @@ osName = unameResult[0]
 archName = unameResult[4].replace ( 'sun4u' , 'sparc' )
 archName = re.sub ( 'i.86' , 'ix86' , archName )
 
+# Alisander is an ancient MacBook which has 64-bit processor but Snow Leopard always runs 32-bit due to the
+# boot PROM being 32-bit.  Must use 64-bit libraries for the MacPort installed GCC 4.6.
+
+if unameResult[1].startswith ( 'alisander' ) :
+     archName = 'x86_64'
+
 homeDirectory = os.environ [ 'HOME' ]
 libDirectory = homeDirectory + '/lib.' + osName + '.' + archName
 
@@ -21,9 +27,10 @@ environment = Environment (
     CXXFLAGS = [ '-Wall' , '-Wundef' , '-Wshadow' , '-Wcast-align' , '-Wredundant-decls' , '-std=c++0x' ] ,
     )
 environment.SConsignFile ( '.sconsign_' + osName + '_' + archName )
-#  Things may be supplied via MacPorts on Mac OS X so add its include area.
+#  GCC 4.6 is supplied via MacPorts on Mac OS X .
 if osName == 'Darwin' :
      environment.Append ( CPPPATH = [ '/opt/local/include' ] )
+     environment['CXX'] = '/opt/local/bin/g++-mp-4.6'
 
 aerynEnvironment = environment.Clone ( LIBS = [ 'aeryn_core' ] , LIBPATH = [ libDirectory ] )
 aerynEnvironment.Append ( CPPPATH = [ homeDirectory + '/include' ] )
