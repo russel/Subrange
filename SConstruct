@@ -38,6 +38,9 @@ if osName == 'Darwin' :
     boostEnvironment.Append ( LIBPATH = [ '/opt/local/lib' ] )
 
 googleEnvironment = environment.Clone ( LIBS = [ 'gtest' , 'pthread' ] )
+#  Things may be supplied via MacPorts so add its include area.
+if osName == 'Darwin' :
+    googleEnvironment.Append ( LIBPATH = [ '/opt/local/lib' ] )
 
 cuteEnvironment = environment.Clone ( )
 cuteEnvironment.Append ( CPPPATH = [ homeDirectory + '/include' ] )
@@ -46,15 +49,14 @@ Export ( 'boostEnvironment' , 'googleEnvironment' , 'cuteEnvironment' )
 
 boostProgram , googleProgram , cuteProgram = SConscript ( 'tests/SConscript' , variant_dir = buildDirectory , duplicate = 0 )
 
-boostCommand = './$SOURCES'
-boostTest = Command ( 'test.Boost' , boostProgram , boostCommand )
+executionCommand = './$SOURCES'
 
-googleTest = Command ( 'test.Google' , googleProgram , ( 'DY' if osName == 'Darwin' else '' ) + 'LD_LIBRARY_PATH=' + libDirectory + '/GoogleTest/lib ./$SOURCES' )
-
-cuteTest = Command ( 'test.CUTE' , cuteProgram , './$SOURCE' )
+boostTest = Command ( 'test.Boost' , boostProgram , executionCommand )
+googleTest = Command ( 'test.Google' , googleProgram , executionCommand )
+cuteTest = Command ( 'test.CUTE' , cuteProgram , executionCommand )
 
 Command ( 'docs' , docsConfigFile , 'doxygen ' + docsConfigFile )
 
-Default ( boostTest , googleTest )#, cuteTest )
+Default ( boostTest , googleTest , cuteTest )
 
 Clean ( '.' , Glob ( '*~' ) + Glob ( '*/*~' ) + [ 'Documentation' , buildDirectory ] )

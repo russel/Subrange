@@ -1,6 +1,6 @@
 //  Unit test for a subrange type template for C++
 //
-//  Copyright (c) 2011 Russel Winder
+//  Copyright © 2011–2012 Russel Winder
 //
 //  Distributed under the Boost Software License, Version 1.0.  See
 //  http://www.boost.org/LICENSE_1_0.txt.
@@ -12,14 +12,16 @@
  *
  *  <p>This is in serious need of extending with far more test cases.</p>
  *
- *  <p>Copyright (c) 2011  Russel Winder.</p>
+ *  <p>Copyright © 2011–2012  Russel Winder.</p>
  *
  *  @author Russel Winder
- *  @version 1.0
- *  @date 2011-06-29 14:03+01:00
+ *  @version 1.1
+ *  @date 2012-02-04T19:30
  */
 
 #include "cute/cute.h"
+#include "cute/ide_listener.h" 
+#include "cute/cute_runner.h" 
 
 #include "subrange.hpp"
 
@@ -1254,176 +1256,178 @@ void greaterThanEqualToTestFloat() {
 }
 
 int main ( ) {
+  cute::suite s ;
 
-  cute::test tests[] = {
-    CUTE ( createDefaultTestEnum ) ,
-    CUTE ( assignTestEnum ) ,
-    CUTE ( equalsTestEnum ) ,
-    CUTE ( notEqualsTestEnum ) ,
-    CUTE ( lessThanTestEnum ) ,
-    CUTE ( lessThanEqualToTestEnum ) ,
-    CUTE ( greaterThanTestEnum ) ,
-    CUTE ( greaterThanEqualToTestEnum ) ,
-    
-    CUTE ( createDefaultTestIntException ) ,
-    CUTE ( preincrementTestIntException ) ,
-    CUTE ( postincrementTestIntException ) ,
-    CUTE ( predecrementTestIntException ) ,
-    CUTE ( postdecrementTestIntException ) ,
-    CUTE ( assignLiteralTestIntException ) ,
-    CUTE ( assignTestIntException ) ,
-    CUTE ( addAssignTestIntException ) ,
-    CUTE ( subtractAssignTestIntException ) ,
-    CUTE ( multiplyAssignTestIntException ) ,
-    CUTE ( divideAssignTestIntException ) ,
-    CUTE ( remainderAssignTestIntException ) ,
-    CUTE ( xorAssignTestIntException ) ,
-    CUTE ( andAssignTestIntException ) ,
-    CUTE ( orAssignTestIntException ) ,
-    CUTE ( shiftLeftAssignTestIntException ) ,
-    CUTE ( shiftRightAssignTestIntException ) ,
-    CUTE ( addTestIntException ) ,
-    CUTE ( subtractTestIntException ) ,
-    CUTE ( multiplyTestIntException ) ,
-    CUTE ( divideTestIntException ) ,
-    CUTE ( remainderTestIntException ) ,
-    CUTE ( xorTestIntException ) ,
-    CUTE ( andTestIntException ) ,
-    CUTE ( orTestIntException ) ,
-    CUTE ( shiftLeftTestIntException ) ,
-    CUTE ( shiftRightTestIntException ) ,
-    CUTE ( equalsTestIntException ) ,
-    CUTE ( notEqualsTestIntException ) ,
-    CUTE ( lessThanTestIntException ) ,
-    CUTE ( lessThanEqualToTestIntException ) ,
-    CUTE ( greaterThanTestIntException ) ,
-    CUTE ( greaterThanEqualToTestIntException ) ,
-    
-    CUTE ( createDefaultTestIntModulo ) ,
-    CUTE ( preincrementTestIntModulo ) ,
-    CUTE ( postincrementTestIntModulo ) ,
-    CUTE ( predecrementTestIntModulo ) ,
-    CUTE ( postdecrementTestIntModulo ) ,
-    CUTE ( assignLiteralTestIntModulo ) ,
-    CUTE ( assignTestIntModulo ) ,
-    CUTE ( addAssignTestIntModulo ) ,
-    CUTE ( subtractAssignTestIntModulo ) ,
-    CUTE ( multiplyAssignTestIntModulo ) ,
-    CUTE ( divideAssignTestIntModulo ) ,
-    CUTE ( remainderAssignTestIntModulo ) ,
-    CUTE ( xorAssignTestIntModulo ) ,
-    CUTE ( andAssignTestIntModulo ) ,
-    CUTE ( orAssignTestIntModulo ) ,
-    CUTE ( shiftLeftAssignTestIntModulo ) ,
-    CUTE ( shiftRightAssignTestIntModulo ) ,
-    CUTE ( addTestIntModulo ) ,
-    CUTE ( subtractTestIntModulo ) ,
-    CUTE ( multiplyTestIntModulo ) ,
-    CUTE ( divideTestIntModulo ) ,
-    CUTE ( remainderTestIntModulo ) ,
-    CUTE ( xorTestIntModulo ) ,
-    CUTE ( andTestIntModulo ) ,
-    CUTE ( orTestIntModulo ) ,
-    CUTE ( shiftLeftTestIntModulo ) ,
-    CUTE ( shiftRightTestIntModulo ) ,
-    CUTE ( equalsTestIntModulo ) ,
-    CUTE ( notEqualsTestIntModulo ) ,
-    CUTE ( lessThanTestIntModulo ) ,
-    CUTE ( lessThanEqualToTestIntModulo ) ,
-    CUTE ( greaterThanTestIntModulo ) ,
-    CUTE ( greaterThanEqualToTestIntModulo ) ,
-    
-    CUTE ( createDefaultTestIntSaturated ) ,
-    CUTE ( preincrementTestIntSaturated ) ,
-    CUTE ( postincrementTestIntSaturated ) ,
-    CUTE ( predecrementTestIntSaturated ) ,
-    CUTE ( postdecrementTestIntSaturated ) ,
-    CUTE ( assignLiteralTestIntSaturated ) ,
-    CUTE ( assignTestIntSaturated ) ,
-    CUTE ( addAssignTestIntSaturated ) ,
-    CUTE ( subtractAssignTestIntSaturated ) ,
-    CUTE ( multiplyAssignTestIntSaturated ) ,
-    CUTE ( divideAssignTestIntSaturated ) ,
-    CUTE ( remainderAssignTestIntSaturated ) ,
-    CUTE ( xorAssignTestIntSaturated ) ,
-    CUTE ( andAssignTestIntSaturated ) ,
-    CUTE ( orAssignTestIntSaturated ) ,
-    CUTE ( shiftLeftAssignTestIntSaturated ) ,
-    CUTE ( shiftRightAssignTestIntSaturated ) ,
-    CUTE ( addTestIntSaturated ) ,
-    CUTE ( subtractTestIntSaturated ) ,
-    CUTE ( multiplyTestIntSaturated ) ,
-    CUTE ( divideTestIntSaturated ) ,
-    CUTE ( remainderTestIntSaturated ) ,
-    CUTE ( xorTestIntSaturated ) ,
-    CUTE ( andTestIntSaturated ) ,
-    CUTE ( orTestIntSaturated ) ,
-    CUTE ( shiftLeftTestIntSaturated ) ,
-    CUTE ( shiftRightTestIntSaturated ) ,
-    CUTE ( equalsTestIntSaturated ) ,
-    CUTE ( notEqualsTestIntSaturated ) ,
-    CUTE ( lessThanTestIntSaturated ) ,
-    CUTE ( lessThanEqualToTestIntSaturated ) ,
-    CUTE ( greaterThanTestIntSaturated ) ,
-    CUTE ( greaterThanEqualToTestIntSaturated ) ,
-    
-    CUTE ( createDefaultTestIntNaN ) ,
-    CUTE ( preincrementTestIntNaN ) ,
-    CUTE ( postincrementTestIntNaN ) ,
-    CUTE ( predecrementTestIntNaN ) ,
-    CUTE ( postdecrementTestIntNaN ) ,
-    CUTE ( assignLiteralTestIntNaN ) ,
-    CUTE ( assignTestIntNaN ) ,
-    CUTE ( addAssignTestIntNaN ) ,
-    CUTE ( subtractAssignTestIntNaN ) ,
-    CUTE ( multiplyAssignTestIntNaN ) ,
-    CUTE ( divideAssignTestIntNaN ) ,
-    CUTE ( remainderAssignTestIntNaN ) ,
-    CUTE ( xorAssignTestIntNaN ) ,
-    CUTE ( andAssignTestIntNaN ) ,
-    CUTE ( orAssignTestIntNaN ) ,
-    CUTE ( shiftLeftAssignTestIntNaN ) ,
-    CUTE ( shiftRightAssignTestIntNaN ) ,
-    CUTE ( addTestIntNaN ) ,
-    CUTE ( subtractTestIntNaN ) ,
-    CUTE ( multiplyTestIntNaN ) ,
-    CUTE ( divideTestIntNaN ) ,
-    CUTE ( remainderTestIntNaN ) ,
-    CUTE ( xorTestIntNaN ) ,
-    CUTE ( andTestIntNaN ) ,
-    CUTE ( orTestIntNaN ) ,
-    CUTE ( shiftLeftTestIntNaN ) ,
-    CUTE ( shiftRightTestIntNaN ) ,
-    CUTE ( equalsTestIntNaN ) ,
-    CUTE ( notEqualsTestIntNaN ) ,
-    CUTE ( lessThanTestIntNaN ) ,
-    CUTE ( lessThanEqualToTestIntNaN ) ,
-    CUTE ( greaterThanTestIntNaN ) ,
-    CUTE ( greaterThanEqualToTestIntNaN ) ,
-    
-    CUTE ( createDefaultTestFloat ) ,
-    CUTE ( preincrementTestFloat ) ,
-    CUTE ( postincrementTestFloat ) ,
-    CUTE ( predecrementTestFloat ) ,
-    CUTE ( postdecrementTestFloat ) ,
-    CUTE ( assignLiteralTestFloat ) ,
-    CUTE ( assignTestFloat ) ,
-    CUTE ( addAssignTestFloat ) ,
-    CUTE ( subtractAssignTestFloat ) ,
-    CUTE ( multiplyAssignTestFloat ) ,
-    CUTE ( divideAssignTestFloat ) ,
-    CUTE ( addTestFloat ) ,
-    CUTE ( subtractTestFloat ) ,
-    CUTE ( multiplyTestFloat ) ,
-    CUTE ( divideTestFloat ) ,
-    CUTE ( equalsTestFloat ) ,
-    CUTE ( notEqualsTestFloat ) ,
-    CUTE ( lessThanTestFloat ) ,
-    CUTE ( lessThanEqualToTestFloat ) ,
-    CUTE ( greaterThanTestFloat ) ,
-    CUTE ( greaterThanEqualToTestFloat )
-  } ;
-  cute::runner<cute::ide_listener> run ;
-  cute::suite s ( tests , tests + ( sizeof(tests) / sizeof(tests[0]) ) ) ;
-  return run ( s , "suite" ) ;
+  s.push_back ( CUTE ( createDefaultTestEnum ) ) ;
+  s.push_back ( CUTE ( assignTestEnum ) ) ;
+  s.push_back ( CUTE ( equalsTestEnum ) ) ;
+  s.push_back ( CUTE ( notEqualsTestEnum ) ) ;
+  s.push_back ( CUTE ( lessThanTestEnum ) ) ;
+  s.push_back ( CUTE ( lessThanEqualToTestEnum ) ) ;
+  s.push_back ( CUTE ( greaterThanTestEnum ) ) ;
+  s.push_back ( CUTE ( greaterThanEqualToTestEnum ) ) ;
+  
+  s.push_back ( CUTE ( createDefaultTestIntException ) ) ;
+  s.push_back ( CUTE ( preincrementTestIntException ) ) ;
+  s.push_back ( CUTE ( postincrementTestIntException ) ) ;
+  s.push_back ( CUTE ( predecrementTestIntException ) ) ;
+  s.push_back ( CUTE ( postdecrementTestIntException ) ) ;
+  s.push_back ( CUTE ( assignLiteralTestIntException ) ) ;
+  s.push_back ( CUTE ( assignTestIntException ) ) ;
+  s.push_back ( CUTE ( addAssignTestIntException ) ) ;
+  s.push_back ( CUTE ( subtractAssignTestIntException ) ) ;
+  s.push_back ( CUTE ( multiplyAssignTestIntException ) ) ;
+  s.push_back ( CUTE ( divideAssignTestIntException ) ) ;
+  s.push_back ( CUTE ( remainderAssignTestIntException ) ) ;
+  s.push_back ( CUTE ( xorAssignTestIntException ) ) ;
+  s.push_back ( CUTE ( andAssignTestIntException ) ) ;
+  s.push_back ( CUTE ( orAssignTestIntException ) ) ;
+  s.push_back ( CUTE ( shiftLeftAssignTestIntException ) ) ;
+  s.push_back ( CUTE ( shiftRightAssignTestIntException ) ) ;
+  s.push_back ( CUTE ( addTestIntException ) ) ;
+  s.push_back ( CUTE ( subtractTestIntException ) ) ;
+  s.push_back ( CUTE ( multiplyTestIntException ) ) ;
+  s.push_back ( CUTE ( divideTestIntException ) ) ;
+  s.push_back ( CUTE ( remainderTestIntException ) ) ;
+  s.push_back ( CUTE ( xorTestIntException ) ) ;
+  s.push_back ( CUTE ( andTestIntException ) ) ;
+  s.push_back ( CUTE ( orTestIntException ) ) ;
+  s.push_back ( CUTE ( shiftLeftTestIntException ) ) ;
+  s.push_back ( CUTE ( shiftRightTestIntException ) ) ;
+  s.push_back ( CUTE ( equalsTestIntException ) ) ;
+  s.push_back ( CUTE ( notEqualsTestIntException ) ) ;
+  s.push_back ( CUTE ( lessThanTestIntException ) ) ;
+  s.push_back ( CUTE ( lessThanEqualToTestIntException ) ) ;
+  s.push_back ( CUTE ( greaterThanTestIntException ) ) ;
+  s.push_back ( CUTE ( greaterThanEqualToTestIntException ) ) ;
+  
+  s.push_back ( CUTE ( createDefaultTestIntModulo ) ) ;
+  s.push_back ( CUTE ( preincrementTestIntModulo ) ) ;
+  s.push_back ( CUTE ( postincrementTestIntModulo ) ) ;
+  s.push_back ( CUTE ( predecrementTestIntModulo ) ) ;
+  s.push_back ( CUTE ( postdecrementTestIntModulo ) ) ;
+  s.push_back ( CUTE ( assignLiteralTestIntModulo ) ) ;
+  s.push_back ( CUTE ( assignTestIntModulo ) ) ;
+  s.push_back ( CUTE ( addAssignTestIntModulo ) ) ;
+  s.push_back ( CUTE ( subtractAssignTestIntModulo ) ) ;
+  s.push_back ( CUTE ( multiplyAssignTestIntModulo ) ) ;
+  s.push_back ( CUTE ( divideAssignTestIntModulo ) ) ;
+  s.push_back ( CUTE ( remainderAssignTestIntModulo ) ) ;
+  s.push_back ( CUTE ( xorAssignTestIntModulo ) ) ;
+  s.push_back ( CUTE ( andAssignTestIntModulo ) ) ;
+  s.push_back ( CUTE ( orAssignTestIntModulo ) ) ;
+  s.push_back ( CUTE ( shiftLeftAssignTestIntModulo ) ) ;
+  s.push_back ( CUTE ( shiftRightAssignTestIntModulo ) ) ;
+  s.push_back ( CUTE ( addTestIntModulo ) ) ;
+  s.push_back ( CUTE ( subtractTestIntModulo ) ) ;
+  s.push_back ( CUTE ( multiplyTestIntModulo ) ) ;
+  s.push_back ( CUTE ( divideTestIntModulo ) ) ;
+  s.push_back ( CUTE ( remainderTestIntModulo ) ) ;
+  s.push_back ( CUTE ( xorTestIntModulo ) ) ;
+  s.push_back ( CUTE ( andTestIntModulo ) ) ;
+  s.push_back ( CUTE ( orTestIntModulo ) ) ;
+  s.push_back ( CUTE ( shiftLeftTestIntModulo ) ) ;
+  s.push_back ( CUTE ( shiftRightTestIntModulo ) ) ;
+  s.push_back ( CUTE ( equalsTestIntModulo ) ) ;
+  s.push_back ( CUTE ( notEqualsTestIntModulo ) ) ;
+  s.push_back ( CUTE ( lessThanTestIntModulo ) ) ;
+  s.push_back ( CUTE ( lessThanEqualToTestIntModulo ) ) ;
+  s.push_back ( CUTE ( greaterThanTestIntModulo ) ) ;
+  s.push_back ( CUTE ( greaterThanEqualToTestIntModulo ) ) ;
+  
+  s.push_back ( CUTE ( createDefaultTestIntSaturated ) ) ;
+  s.push_back ( CUTE ( preincrementTestIntSaturated ) ) ;
+  s.push_back ( CUTE ( postincrementTestIntSaturated ) ) ;
+  s.push_back ( CUTE ( predecrementTestIntSaturated ) ) ;
+  s.push_back ( CUTE ( postdecrementTestIntSaturated ) ) ;
+  s.push_back ( CUTE ( assignLiteralTestIntSaturated ) ) ;
+  s.push_back ( CUTE ( assignTestIntSaturated ) ) ;
+  s.push_back ( CUTE ( addAssignTestIntSaturated ) ) ;
+  s.push_back ( CUTE ( subtractAssignTestIntSaturated ) ) ;
+  s.push_back ( CUTE ( multiplyAssignTestIntSaturated ) ) ;
+  s.push_back ( CUTE ( divideAssignTestIntSaturated ) ) ;
+  s.push_back ( CUTE ( remainderAssignTestIntSaturated ) ) ;
+  s.push_back ( CUTE ( xorAssignTestIntSaturated ) ) ;
+  s.push_back ( CUTE ( andAssignTestIntSaturated ) ) ;
+  s.push_back ( CUTE ( orAssignTestIntSaturated ) ) ;
+  s.push_back ( CUTE ( shiftLeftAssignTestIntSaturated ) ) ;
+  s.push_back ( CUTE ( shiftRightAssignTestIntSaturated ) ) ;
+  s.push_back ( CUTE ( addTestIntSaturated ) ) ;
+  s.push_back ( CUTE ( subtractTestIntSaturated ) ) ;
+  s.push_back ( CUTE ( multiplyTestIntSaturated ) ) ;
+  s.push_back ( CUTE ( divideTestIntSaturated ) ) ;
+  s.push_back ( CUTE ( remainderTestIntSaturated ) ) ;
+  s.push_back ( CUTE ( xorTestIntSaturated ) ) ;
+  s.push_back ( CUTE ( andTestIntSaturated ) ) ;
+  s.push_back ( CUTE ( orTestIntSaturated ) ) ;
+  s.push_back ( CUTE ( shiftLeftTestIntSaturated ) ) ;
+  s.push_back ( CUTE ( shiftRightTestIntSaturated ) ) ;
+  s.push_back ( CUTE ( equalsTestIntSaturated ) ) ;
+  s.push_back ( CUTE ( notEqualsTestIntSaturated ) ) ;
+  s.push_back ( CUTE ( lessThanTestIntSaturated ) ) ;
+  s.push_back ( CUTE ( lessThanEqualToTestIntSaturated ) ) ;
+  s.push_back ( CUTE ( greaterThanTestIntSaturated ) ) ;
+  s.push_back ( CUTE ( greaterThanEqualToTestIntSaturated ) ) ;
+  
+  s.push_back ( CUTE ( createDefaultTestIntNaN ) ) ;
+  s.push_back ( CUTE ( preincrementTestIntNaN ) ) ;
+  s.push_back ( CUTE ( postincrementTestIntNaN ) ) ;
+  s.push_back ( CUTE ( predecrementTestIntNaN ) ) ;
+  s.push_back ( CUTE ( postdecrementTestIntNaN ) ) ;
+  s.push_back ( CUTE ( assignLiteralTestIntNaN ) ) ;
+  s.push_back ( CUTE ( assignTestIntNaN ) ) ;
+  s.push_back ( CUTE ( addAssignTestIntNaN ) ) ;
+  s.push_back ( CUTE ( subtractAssignTestIntNaN ) ) ;
+  s.push_back ( CUTE ( multiplyAssignTestIntNaN ) ) ;
+  s.push_back ( CUTE ( divideAssignTestIntNaN ) ) ;
+  s.push_back ( CUTE ( remainderAssignTestIntNaN ) ) ;
+  s.push_back ( CUTE ( xorAssignTestIntNaN ) ) ;
+  s.push_back ( CUTE ( andAssignTestIntNaN ) ) ;
+  s.push_back ( CUTE ( orAssignTestIntNaN ) ) ;
+  s.push_back ( CUTE ( shiftLeftAssignTestIntNaN ) ) ;
+  s.push_back ( CUTE ( shiftRightAssignTestIntNaN ) ) ;
+  s.push_back ( CUTE ( addTestIntNaN ) ) ;
+  s.push_back ( CUTE ( subtractTestIntNaN ) ) ;
+  s.push_back ( CUTE ( multiplyTestIntNaN ) ) ;
+  s.push_back ( CUTE ( divideTestIntNaN ) ) ;
+  s.push_back ( CUTE ( remainderTestIntNaN ) ) ;
+  s.push_back ( CUTE ( xorTestIntNaN ) ) ;
+  s.push_back ( CUTE ( andTestIntNaN ) ) ;
+  s.push_back ( CUTE ( orTestIntNaN ) ) ;
+  s.push_back ( CUTE ( shiftLeftTestIntNaN ) ) ;
+  s.push_back ( CUTE ( shiftRightTestIntNaN ) ) ;
+  s.push_back ( CUTE ( equalsTestIntNaN ) ) ;
+  s.push_back ( CUTE ( notEqualsTestIntNaN ) ) ;
+  s.push_back ( CUTE ( lessThanTestIntNaN ) ) ;
+  s.push_back ( CUTE ( lessThanEqualToTestIntNaN ) ) ;
+  s.push_back ( CUTE ( greaterThanTestIntNaN ) ) ;
+  s.push_back ( CUTE ( greaterThanEqualToTestIntNaN ) ) ;
+  
+  s.push_back ( CUTE ( createDefaultTestFloat ) ) ;
+  s.push_back ( CUTE ( preincrementTestFloat ) ) ;
+  s.push_back ( CUTE ( postincrementTestFloat ) ) ;
+  s.push_back ( CUTE ( predecrementTestFloat ) ) ;
+  s.push_back ( CUTE ( postdecrementTestFloat ) ) ;
+  s.push_back ( CUTE ( assignLiteralTestFloat ) ) ;
+  s.push_back ( CUTE ( assignTestFloat ) ) ;
+  s.push_back ( CUTE ( addAssignTestFloat ) ) ;
+  s.push_back ( CUTE ( subtractAssignTestFloat ) ) ;
+  s.push_back ( CUTE ( multiplyAssignTestFloat ) ) ;
+  s.push_back ( CUTE ( divideAssignTestFloat ) ) ;
+  s.push_back ( CUTE ( addTestFloat ) ) ;
+  s.push_back ( CUTE ( subtractTestFloat ) ) ;
+  s.push_back ( CUTE ( multiplyTestFloat ) ) ;
+  s.push_back ( CUTE ( divideTestFloat ) ) ;
+  s.push_back ( CUTE ( equalsTestFloat ) ) ;
+  s.push_back ( CUTE ( notEqualsTestFloat ) ) ;
+  s.push_back ( CUTE ( lessThanTestFloat ) ) ;
+  s.push_back ( CUTE ( lessThanEqualToTestFloat ) ) ;
+  s.push_back ( CUTE ( greaterThanTestFloat ) ) ;
+  s.push_back ( CUTE ( greaterThanEqualToTestFloat ) ) ;
+
+  cute::ide_listener listener ;
+  cute::makeRunner ( listener ) ( s , "Subrange CUTE Tests" ) ;
+ 
+  return 0 ;
+  
 }
