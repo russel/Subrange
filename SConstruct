@@ -32,9 +32,6 @@ if osName == 'Darwin' :
      environment.Append ( CPPPATH = [ '/opt/local/include' ] )
      environment['CXX'] = '/opt/local/bin/g++-mp-4.6'
 
-aerynEnvironment = environment.Clone ( LIBS = [ 'aeryn_core' ] , LIBPATH = [ libDirectory ] )
-aerynEnvironment.Append ( CPPPATH = [ homeDirectory + '/include' ] )
-
 boostEnvironment = environment.Clone ( LIBS = [ 'boost_unit_test_framework' ] )
 #  Things may be supplied via MacPorts so add its include area.
 if osName == 'Darwin' :
@@ -45,11 +42,9 @@ googleEnvironment = environment.Clone ( LIBS = [ 'gtest' , 'pthread' ] )
 cuteEnvironment = environment.Clone ( )
 cuteEnvironment.Append ( CPPPATH = [ homeDirectory + '/include' ] )
 
-Export ( 'aerynEnvironment' , 'boostEnvironment' , 'googleEnvironment' , 'cuteEnvironment' )
+Export ( 'boostEnvironment' , 'googleEnvironment' , 'cuteEnvironment' )
 
-aerynProgram , boostProgram , googleProgram , cuteProgram = SConscript ( 'tests/SConscript' , variant_dir = buildDirectory , duplicate = 0 )
-
-aerynTest = Command ( 'test.Aeryn' , aerynProgram , ( 'DY' if osName == 'Darwin' else '' ) + 'LD_LIBRARY_PATH=' + libDirectory + ' ./$SOURCES' )
+boostProgram , googleProgram , cuteProgram = SConscript ( 'tests/SConscript' , variant_dir = buildDirectory , duplicate = 0 )
 
 boostCommand = './$SOURCES'
 boostTest = Command ( 'test.Boost' , boostProgram , boostCommand )
@@ -60,6 +55,6 @@ cuteTest = Command ( 'test.CUTE' , cuteProgram , './$SOURCE' )
 
 Command ( 'docs' , docsConfigFile , 'doxygen ' + docsConfigFile )
 
-Default ( aerynTest , boostTest , googleTest )#, cuteTest )
+Default ( boostTest , googleTest )#, cuteTest )
 
 Clean ( '.' , Glob ( '*~' ) + Glob ( '*/*~' ) + [ 'Documentation' , buildDirectory ] )
