@@ -57,6 +57,15 @@ cuteTest = Command ( 'test.CUTE' , cuteProgram , executionCommand )
 
 Command ( 'docs' , docsConfigFile , 'doxygen ' + docsConfigFile )
 
-Default ( boostTest , googleTest , cuteTest )
+#  Google test fails to work on Alisander, my ancient OS X (Snow Leopard) MacBook.  The problem is:
+#
+#  google(995) malloc: *** error for object 0x7fff701c9500: pointer being freed was not allocated
+#
+#  which is vaguely incomprehensible.
+
+if osName == 'Darwin' :
+     Default ( boostTest , cuteTest )
+else :
+     Default ( boostTest , googleTest , cuteTest )
 
 Clean ( '.' , Glob ( '*~' ) + Glob ( '*/*~' ) + [ 'Documentation' , buildDirectory ] )
