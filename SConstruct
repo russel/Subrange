@@ -4,68 +4,74 @@ import os
 import platform
 import re
 
-unameResult = platform.uname ( )
+unameResult = platform.uname()
 osName = unameResult[0]
-archName = unameResult[4].replace ( 'sun4u' , 'sparc' )
-archName = re.sub ( 'i.86' , 'ix86' , archName )
+archName = unameResult[4].replace('sun4u', 'sparc')
+archName = re.sub('i.86', 'ix86', archName)
 
-# Alisander is an ancient MacBook which has 64-bit processor but Snow Leopard always runs 32-bit due to the
-# boot PROM being 32-bit.  Must use 64-bit libraries for the MacPort installed GCC 4.6.
+# Alisander is an ancient MacBook running OS X Snow Leopard which has 64-bit processor but Snow Leopard
+# always runs 32-bit due to the boot PROM being 32-bit.  Must use 64-bit libraries for the MacPort installed
+# GCC 4.7.
 
-if unameResult[1].startswith ( 'alisander' ) :
-     archName = 'x86_64'
+if unameResult[1].startswith('alisander'):
+    archName = 'x86_64'
 
-homeDirectory = os.environ [ 'HOME' ]
+homeDirectory = os.environ['HOME']
 libDirectory = homeDirectory + '/lib.' + osName + '.' + archName
 
 buildDirectory = 'build_' + osName + '_' + archName
 
 docsConfigFile = 'doxygen.conf'
 
-environment = Environment (
-    CPPPATH = [ '#source' ] ,
-    CXXFLAGS = [ '-Wall' , '-Wundef' , '-Wshadow' , '-Wcast-align' , '-Wredundant-decls' , '-std=c++0x' ] ,
-    )
-environment.SConsignFile ( '.sconsign_' + osName + '_' + archName )
-#  GCC 4.6 is supplied via MacPorts on Mac OS X .
-if osName == 'Darwin' :
-     environment.Append ( CPPPATH = [ '/opt/local/include' ] )
-     environment['CXX'] = '/opt/local/bin/g++-mp-4.6'
+environment = Environment(
+    tools=['c++', 'link'],
+    CPPPATH=['#source'],
+    #CXXFLAGS=['-Wall', '-Wundef', '-Wshadow', '-Wcast-align', '-Wredundant-decls', '-std=c++11'],
+    CXXFLAGS=['-Wall', '-Wundef', '-Wcast-align', '-Wredundant-decls', '-std=c++11'],
+   )
+environment.SConsignFile('.sconsign_' + osName + '_' + archName)
+if osName == 'Darwin':
+    environment.Append(CPPPATH=['/opt/local/include'])
+    environment['CXX'] = '/opt/local/bin/g++-mp-4.7'
 
-boostEnvironment = environment.Clone ( LIBS = [ 'boost_unit_test_framework' ] )
-#  Things may be supplied via MacPorts so add its include area.
-if osName == 'Darwin' :
-    boostEnvironment.Append ( LIBPATH = [ '/opt/local/lib' ] )
+boostEnvironment = environment.Clone(LIBS=['boost_unit_test_framework'])
+if osName == 'Darwin':
+    boostEnvironment.Append(LIBPATH=['/opt/local/lib'])
 
-googleEnvironment = environment.Clone ( LIBS = [ 'gtest' , 'pthread' ] )
-#  Things may be supplied via MacPorts so add its include area.
-if osName == 'Darwin' :
-    googleEnvironment.Append ( LIBPATH = [ '/opt/local/lib' ] )
+googleEnvironment = environment.Clone(LIBS=['gtest', 'pthread'])
+if osName == 'Darwin':
+    googleEnvironment.Append(LIBPATH=['/opt/local/lib'])
 
-cuteEnvironment = environment.Clone ( )
-cuteEnvironment.Append ( CPPPATH = [ homeDirectory + '/include' ] )
+cuteEnvironment = environment.Clone()
+cuteEnvironment.Append(CPPPATH=[homeDirectory + '/include'])
 
-Export ( 'boostEnvironment' , 'googleEnvironment' , 'cuteEnvironment' )
+catchEnvironment = environment.Clone()
+catchEnvironment.Append(CPPPATH=[homeDirectory + '/include/catch'])
 
-boostProgram , googleProgram , cuteProgram = SConscript ( 'tests/SConscript' , variant_dir = buildDirectory , duplicate = 0 )
+Export('boostEnvironment', 'googleEnvironment', 'cuteEnvironment', 'catchEnvironment')
+
+boostProgram, googleProgram, cuteProgram, catchProgram = SConscript('tests/SConscript', variant_dir=buildDirectory, duplicate=0)
 
 executionCommand = './$SOURCES'
 
-boostTest = Command ( 'test.Boost' , boostProgram , executionCommand )
-googleTest = Command ( 'test.Google' , googleProgram , executionCommand )
-cuteTest = Command ( 'test.CUTE' , cuteProgram , executionCommand )
+boostTest = Command('boost', boostProgram, executionCommand)
+googleTest = Command('googletest', googleProgram, executionCommand)
+cuteTest = Command('cute', cuteProgram, executionCommand)
+catchTest = Command('catch', catchProgram, executionCommand)
 
-Command ( 'docs' , docsConfigFile , 'doxygen ' + docsConfigFile )
+Command('docs', docsConfigFile, 'doxygen ' + docsConfigFile)
 
 #  Google test fails to work on Alisander, my ancient OS X (Snow Leopard) MacBook.  The problem is:
 #
 #  google(995) malloc: *** error for object 0x7fff701c9500: pointer being freed was not allocated
 #
 #  which is vaguely incomprehensible.
+#
+# Google test used to be provided as a package on Debian Unstable, but is no longer.
 
-if osName == 'Darwin' :
-     Default ( boostTest , cuteTest )
-else :
-     Default ( boostTest , googleTest , cuteTest )
+if osName == 'Darwin':
+    Default(boostTest, cuteTest, catchTest)
+else:
+    Default(boostTest, cuteTest, catchTest)
 
-Clean ( '.' , Glob ( '*~' ) + Glob ( '*/*~' ) + [ 'Documentation' , buildDirectory ] )
+Clean('.', Glob('*~') + Glob('*/*~') + ['Documentation', buildDirectory])

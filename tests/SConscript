@@ -1,9 +1,10 @@
 # -*- mode:python; coding:utf-8; -*-
 
-Import ( 'boostEnvironment' , 'googleEnvironment' , 'cuteEnvironment' )
+Import('boostEnvironment', 'googleEnvironment', 'cuteEnvironment', 'catchEnvironment')
 
-boostTest = boostEnvironment.Program ( 'boost.cpp' )
-googleTest = googleEnvironment.Program ( 'google.cpp' )
-cuteTest = cuteEnvironment.Program ( 'cute.cpp' )
+boostTest = boostEnvironment.Program('boost.cpp')
+googleTest = googleEnvironment.Program('google.cpp')
+cuteTest = cuteEnvironment.Program('cute.cpp')
+catchTest = catchEnvironment.Program('catch.cpp')
 
-Return ( 'boostTest' , 'googleTest' , 'cuteTest' )
+Return('boostTest', 'googleTest', 'cuteTest', 'catchTest')
