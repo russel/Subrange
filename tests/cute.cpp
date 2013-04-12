@@ -27,7 +27,7 @@
 
 enum Day {monday, tuesday, wednesday, thursday, friday, saturday, sunday};
 
-typedef subrange::subrange<subrange::ordinal_range<Day, monday, friday> > Weekday;
+typedef subrange::subrange<subrange::ordinal_range<Day, monday, friday>> Weekday;
 
 void createDefaultTestEnum() {
   Weekday a;
@@ -82,7 +82,7 @@ void greaterThanEqualToTestEnum() {
 }
 
 
-typedef subrange::subrange<subrange::ordinal_range<short, 1, 99> > SubIntException;
+typedef subrange::subrange<subrange::ordinal_range<short, 1, 99>> SubIntException;
 
 void createDefaultTestIntException() {
   SubIntException a;

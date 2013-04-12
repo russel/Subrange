@@ -28,7 +28,7 @@
 
 enum Day { monday, tuesday, wednesday, thursday, friday, saturday, sunday };
 
-typedef subrange::subrange<subrange::ordinal_range<Day, monday, friday> > Weekday;
+typedef subrange::subrange<subrange::ordinal_range<Day, monday, friday>> Weekday;
 
 BOOST_AUTO_TEST_CASE(createDefaultTestEnum) {
   Weekday a;
@@ -83,7 +83,7 @@ BOOST_AUTO_TEST_CASE(greaterThanEqualToTestEnum) {
 }
 
 
-typedef subrange::subrange<subrange::ordinal_range<short, 1, 99> > SubIntException;
+typedef subrange::subrange<subrange::ordinal_range<short, 1, 99>> SubIntException;
 
 BOOST_AUTO_TEST_CASE(createDefaultTestIntException) {
   SubIntException a;
