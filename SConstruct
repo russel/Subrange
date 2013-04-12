@@ -28,6 +28,7 @@ environment = Environment(
     CPPPATH=['#source'],
     #CXXFLAGS=['-Wall', '-Wundef', '-Wshadow', '-Wcast-align', '-Wredundant-decls', '-std=c++11'],
     CXXFLAGS=['-Wall', '-Wundef', '-Wcast-align', '-Wredundant-decls', '-std=c++11'],
+    ENV = os.environ,
    )
 environment.SConsignFile('.sconsign_' + osName + '_' + archName)
 if osName == 'Darwin':
