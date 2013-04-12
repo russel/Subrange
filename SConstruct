@@ -46,7 +46,7 @@ cuteEnvironment = environment.Clone()
 cuteEnvironment.Append(CPPPATH=[homeDirectory + '/include'])
 
 catchEnvironment = environment.Clone()
-catchEnvironment.Append(CPPPATH=[homeDirectory + '/include/catch'])
+catchEnvironment.Append(CPPPATH=[homeDirectory + '/include/'])
 
 Export('boostEnvironment', 'googleEnvironment', 'cuteEnvironment', 'catchEnvironment')
 
