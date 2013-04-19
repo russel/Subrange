@@ -39,40 +39,24 @@ boostEnvironment = environment.Clone(LIBS=['boost_unit_test_framework'])
 if osName == 'Darwin':
     boostEnvironment.Append(LIBPATH=['/opt/local/lib'])
 
-googleEnvironment = environment.Clone(LIBS=['gtest', 'pthread'])
-if osName == 'Darwin':
-    googleEnvironment.Append(LIBPATH=['/opt/local/lib'])
-
 cuteEnvironment = environment.Clone()
 cuteEnvironment.Append(CPPPATH=[homeDirectory + '/include'])
 
 catchEnvironment = environment.Clone()
 catchEnvironment.Append(CPPPATH=[homeDirectory + '/include/'])
 
-Export('boostEnvironment', 'googleEnvironment', 'cuteEnvironment', 'catchEnvironment')
+Export('boostEnvironment', 'cuteEnvironment', 'catchEnvironment')
 
-boostProgram, googleProgram, cuteProgram, catchProgram = SConscript('tests/SConscript', variant_dir=buildDirectory, duplicate=0)
+boostProgram, cuteProgram, catchProgram = SConscript('tests/SConscript', variant_dir=buildDirectory, duplicate=0)
 
 executionCommand = './$SOURCES'
 
 boostTest = Command('boost', boostProgram, executionCommand)
-googleTest = Command('googletest', googleProgram, executionCommand)
 cuteTest = Command('cute', cuteProgram, executionCommand)
 catchTest = Command('catch', catchProgram, executionCommand)
 
 Command('docs', docsConfigFile, 'doxygen ' + docsConfigFile)
 
-#  Google test fails to work on Alisander, my ancient OS X (Snow Leopard) MacBook.  The problem is:
-#
-#  google(995) malloc: *** error for object 0x7fff701c9500: pointer being freed was not allocated
-#
-#  which is vaguely incomprehensible.
-#
-# Google test used to be provided as a package on Debian Unstable, but is no longer.
-
-if osName == 'Darwin':
-    Default(boostTest, cuteTest, catchTest)
-else:
-    Default(boostTest, cuteTest, catchTest)
+Default(boostTest, cuteTest, catchTest)
 
 Clean('.', Glob('*~') + Glob('*/*~') + ['Documentation', buildDirectory])
