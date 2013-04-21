@@ -15,8 +15,8 @@
  *  <p>Copyright © 2012, 2013  Russel Winder.</p>
  *
  *  @author Russel Winder
- *  @version 1.1
- *  @date 2013-04-12T11:35+01:00
+ *  @version 1.2
+ *  @date 2013-04-21T08:33+01:00
  */
 
 #define CATCH_CONFIG_MAIN
