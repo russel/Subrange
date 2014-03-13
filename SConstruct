@@ -26,8 +26,9 @@ docsConfigFile = 'doxygen.conf'
 environment = Environment(
     tools=['c++', 'link'],
     CPPPATH=['#source'],
-    #CXXFLAGS=['-Wall', '-Wundef', '-Wshadow', '-Wcast-align', '-Wredundant-decls', '-std=c++11'],
-    CXXFLAGS=['-Wall', '-Wundef', '-Wcast-align', '-Wredundant-decls', '-std=c++11'],
+    #  Lots of shadowing in the libraries so dispense with this option.
+    #CXXFLAGS=['-Wall', '-Wundef', '-Wshadow', '-Wcast-align', '-Wredundant-decls', '-std=c++1y'],
+    CXXFLAGS=['-Wall', '-Wundef', '-Wcast-align', '-Wredundant-decls', '-std=c++1y'],
     ENV = os.environ,
    )
 environment.SConsignFile('.sconsign_' + osName + '_' + archName)
