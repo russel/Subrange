@@ -1,6 +1,6 @@
 //  Unit test for a subrange type template for C++
 //
-//  Copyright © 2012, 2013  Russel Winder
+//  Copyright © 2012–2014  Russel Winder
 //
 //  Distributed under the Boost Software License, Version 1.0.  See
 //  http://www.boost.org/LICENSE_1_0.txt.
@@ -12,11 +12,11 @@
  *
  *  <p>This is in serious need of extending with far more test cases.</p>
  *
- *  <p>Copyright © 2012, 2013  Russel Winder.</p>
+ *  <p>Copyright © 2012–2014  Russel Winder.</p>
  *
  *  @author Russel Winder
- *  @version 1.2
- *  @date 2013-04-21T08:33+01:00
+ *  @version 1.3
+ *  @date 2014-11-03T11:14
  */
 
 #define CATCH_CONFIG_MAIN
@@ -28,52 +28,52 @@ enum Day {monday, tuesday, wednesday, thursday, friday, saturday, sunday};
 
 typedef subrange::subrange<subrange::ordinal_range<Day, monday, friday>> Weekday;
 
-TEST_CASE("createDefaultTestEnum") {
+TEST_CASE("create default test enum") {
   Weekday a;
   REQUIRE(a == monday);
 }
 
-TEST_CASE("assignTestEnum") {
+TEST_CASE("assign test enum") {
   Weekday a {monday};
   Weekday b {tuesday};
   a = b;
   REQUIRE(a == b);
 }
 
-TEST_CASE("equalsTestEnum") {
+TEST_CASE("equals test enum") {
   Weekday a {monday};
   Weekday b {monday};
   REQUIRE(a == b);
 }
 
-TEST_CASE("notEqualsTestEnum") {
+TEST_CASE("not equals test enum") {
   Weekday a {monday};
   Weekday b {tuesday};
   REQUIRE(a != b);
 }
 
-TEST_CASE("lessThanTestEnum") {
+TEST_CASE("less than test enum") {
   Weekday a {monday};
   Weekday b {tuesday};
   REQUIRE(a < b);
   REQUIRE(!(a >= b));
 }
 
-TEST_CASE("lessThanEqualToTestEnum") {
+TEST_CASE("less than equal to test enum") {
   Weekday a {monday};
   Weekday b {monday};
   REQUIRE(a <= b);
   REQUIRE(!(a > b));
 }
 
-TEST_CASE("greaterThanTestEnum") {
+TEST_CASE("greater than test enum") {
   Weekday a {monday};
   Weekday b {tuesday};
   REQUIRE(b > a);
   REQUIRE(!(b <= a));
 }
 
-TEST_CASE("greaterThanEqualToTestEnum") {
+TEST_CASE("greater than equal to test enum") {
   Weekday a {monday};
   Weekday b {monday};
   REQUIRE(a >= b);
@@ -82,36 +82,36 @@ TEST_CASE("greaterThanEqualToTestEnum") {
 
 typedef subrange::subrange<subrange::ordinal_range<short, 1, 99>> SubIntException;
 
-TEST_CASE("createDefaultTestIntException") {
+TEST_CASE("create default test int exception") {
   SubIntException a;
   REQUIRE(a == 1);
 }
 
-TEST_CASE("preincrementTestIntException") {
+TEST_CASE("preincrement test int exception") {
   SubIntException a {9};
   ++a;
   REQUIRE(a == 10);
 }
 
-TEST_CASE("postincrementTestIntException") {
+TEST_CASE("postincrement test int exception") {
   SubIntException a {9};
   a++;
   REQUIRE(a == 10);
 }
 
-TEST_CASE("predecrementTestIntException") {
+TEST_CASE("predecrement test int exception") {
   SubIntException a {9};
   --a;
   REQUIRE(a == 8);
 }
 
-TEST_CASE("postdecrementTestIntException") {
+TEST_CASE("postdecrement test int exception") {
   SubIntException a {9};
   a--;
   REQUIRE(a == 8);
 }
 
-TEST_CASE("assignLiteralTestIntException") {
+TEST_CASE("assign literal test int exception") {
   SubIntException a {9};
   a = 20;
   REQUIRE(a == 20);
@@ -119,7 +119,7 @@ TEST_CASE("assignLiteralTestIntException") {
   //THROWS_EXCEPTION(a = -5, subrange::range_error);
 }
 
-TEST_CASE("assignTestIntException") {
+TEST_CASE("assign test int exception") {
   SubIntException a {9};
   SubIntException b {20};
   a = b;
@@ -127,7 +127,7 @@ TEST_CASE("assignTestIntException") {
   REQUIRE(a == 20);
 }
 
-TEST_CASE("addAssignTestIntException") {
+TEST_CASE("add assign test int exception") {
   SubIntException a {9};
   SubIntException b {20};
   a += b;
@@ -139,7 +139,7 @@ TEST_CASE("addAssignTestIntException") {
   //THROWS_EXCEPTION(a += 200, subrange::range_error);
 }
 
-TEST_CASE("subtractAssignTestIntException") {
+TEST_CASE("subtract assign test int exception") {
   SubIntException a {20};
   SubIntException b {9};
   a -= b;
@@ -151,7 +151,7 @@ TEST_CASE("subtractAssignTestIntException") {
   //THROWS_EXCEPTION(b -= a, subrange::range_error);
 }
 
-TEST_CASE("multiplyAssignTestIntException") {
+TEST_CASE("multiply assign test int exception") {
   SubIntException a {20};
   SubIntException b {3};
   a *= b;
@@ -159,54 +159,54 @@ TEST_CASE("multiplyAssignTestIntException") {
   //THROWS_EXCEPTION(a *= b, subrange::range_error);
 }
 
-TEST_CASE("divideAssignTestIntException") {
+TEST_CASE("divide assign test int exception") {
   SubIntException a {20};
   SubIntException b {3};
   a /= b;
   REQUIRE(a == 6);
 }
 
-TEST_CASE("remainderAssignTestIntException") {
+TEST_CASE("remainder assign test int exception") {
   SubIntException a {20};
   SubIntException b {3};
   a %= b;
   REQUIRE(a == 2);
 }
 
-TEST_CASE("xorAssignTestIntException") {
+TEST_CASE("xor assign test int exception") {
   SubIntException a {0x12};
   SubIntException b {0x03};
   a ^= b;
   REQUIRE(a == 0x11);
 }
 
-TEST_CASE("andAssignTestIntException") {
+TEST_CASE("and assign test int exception") {
   SubIntException a {0x12};
   SubIntException b {0x03};
   a &= b;
   REQUIRE(a == 0x02);
 }
 
-TEST_CASE("orAssignTestIntException") {
+TEST_CASE("or assign test int exception") {
   SubIntException a {0x12};
   SubIntException b {0x03};
   a |= b;
   REQUIRE(a == 0x13);
 }
 
-TEST_CASE("shiftLeftAssignTestIntException") {
+TEST_CASE("shift left assign test int exception") {
   SubIntException a {0x12};
   a <<= 1;
   REQUIRE(a == 0x24);
 }
 
-TEST_CASE("shiftRightAssignTestIntException") {
+TEST_CASE("shift right assign test int exception") {
   SubIntException a {0x12};
   a >>= 1;
   REQUIRE(a == 0x09);
 }
 
-TEST_CASE("addTestIntException") {
+TEST_CASE("add test int exception") {
   SubIntException a {9};
   SubIntException b {20};
   a = a + b;
@@ -221,103 +221,103 @@ TEST_CASE("addTestIntException") {
   REQUIRE(a == 29);
 }
 
-TEST_CASE("subtractTestIntException") {
+TEST_CASE("subtract test int exception") {
   SubIntException a {20};
   SubIntException b {9};
   a = a - b;
   REQUIRE(a == 11);
 }
 
-TEST_CASE("multiplyTestIntException") {
+TEST_CASE("multiply test int exception") {
   SubIntException a {20};
   SubIntException b {3};
   a = a * b;
   REQUIRE(a == 60);
 }
 
-TEST_CASE("divideTestIntException") {
+TEST_CASE("divide test int exception") {
   SubIntException a {20};
   SubIntException b {3};
   a = a / b;
   REQUIRE(a == 6);
 }
 
-TEST_CASE("remainderTestIntException") {
+TEST_CASE("remainder test int exception") {
   SubIntException a {20};
   SubIntException b {3};
   a = a % b;
   REQUIRE(a == 2);
 }
 
-TEST_CASE("xorTestIntException") {
+TEST_CASE("xor test int exception") {
   SubIntException a {0x12};
   SubIntException b {0x03};
   a = a ^ b;
   REQUIRE(a == 0x11);
 }
 
-TEST_CASE("andTestIntException") {
+TEST_CASE("and test int exception") {
   SubIntException a {0x12};
   SubIntException b {0x03};
   a = a & b;
   REQUIRE(a == 0x02);
 }
 
-TEST_CASE("orTestIntException") {
+TEST_CASE("or test int exception") {
   SubIntException a {0x12};
   SubIntException b {0x03};
   a = a | b;
   REQUIRE(a == 0x13);
 }
 
-TEST_CASE("shiftLeftTestIntException") {
+TEST_CASE("shift left test int exception") {
   SubIntException a {0x12};
   a = a << 1;
   REQUIRE(a == 0x24);
   //THROWS_EXCEPTION(a = a << 3, subrange::range_error);
 }
 
-TEST_CASE("shiftRightTestIntException") {
+TEST_CASE("shift right test int exception") {
   SubIntException a {0x12};
   a = a >> 1;
   REQUIRE(a == 0x09);
   //THROWS_EXCEPTION(a = a >> 5, subrange::range_error);
 }
 
-TEST_CASE("equalsTestIntException") {
+TEST_CASE("equals test int exception") {
   SubIntException a {9};
   SubIntException b {9};
   REQUIRE(a == b);
 }
 
-TEST_CASE("notEqualsTestIntException") {
+TEST_CASE("not equals test int exception") {
   SubIntException a {9};
   SubIntException b {8};
   REQUIRE(a != b);
 }
 
-TEST_CASE("lessThanTestIntException") {
+TEST_CASE("less than test int exception") {
   SubIntException a {8};
   SubIntException b {9};
   REQUIRE(a < b);
   REQUIRE(!(a >= b));
 }
 
-TEST_CASE("lessThanEqualToTestIntException") {
+TEST_CASE("less than equal to test int exception") {
   SubIntException a {8};
   SubIntException b {8};
   REQUIRE(a <= b);
   REQUIRE(!(a > b));
 }
 
-TEST_CASE("greaterThanTestIntException") {
+TEST_CASE("greater than test int exception") {
   SubIntException a {8};
   SubIntException b {9};
   REQUIRE(b > a);
   REQUIRE(!(b <= a));
 }
 
-TEST_CASE("greaterThanEqualToTestIntException") {
+TEST_CASE("greater than equal to test int exception") {
   SubIntException a {8};
   SubIntException b {8};
   REQUIRE(a >= b);
@@ -326,36 +326,36 @@ TEST_CASE("greaterThanEqualToTestIntException") {
 
 typedef subrange::subrange<subrange::ordinal_range<short, 1, 99>, subrange::modulo_arithmetic> SubIntModulo;
 
-TEST_CASE("createDefaultTestIntModulo") {
+TEST_CASE("create default test int modulo") {
   SubIntModulo a;
   REQUIRE(a == 1);
 }
 
-TEST_CASE("preincrementTestIntModulo") {
+TEST_CASE("preincrement test int modulo") {
   SubIntModulo a {9};
   ++a;
   REQUIRE(a == 10);
 }
 
-TEST_CASE("postincrementTestIntModulo") {
+TEST_CASE("postincrement test int modulo") {
   SubIntModulo a {9};
   a++;
   REQUIRE(a == 10);
 }
 
-TEST_CASE("predecrementTestIntModulo") {
+TEST_CASE("predecrement test int modulo") {
   SubIntModulo a {9};
   --a;
   REQUIRE(a == 8);
 }
 
-TEST_CASE("postdecrementTestIntModulo") {
+TEST_CASE("postdecrement test int modulo") {
   SubIntModulo a {9};
   a--;
   REQUIRE(a == 8);
 }
 
-TEST_CASE("assignLiteralTestIntModulo") {
+TEST_CASE("assign literal test int modulo") {
   SubIntModulo a {9};
   a = 20;
   REQUIRE(a == 20);
@@ -365,7 +365,7 @@ TEST_CASE("assignLiteralTestIntModulo") {
   REQUIRE(a == 93);
 }
 
-TEST_CASE("assignTestIntModulo") {
+TEST_CASE("assign test int modulo") {
   SubIntModulo a {9};
   SubIntModulo b {20};
   a = b;
@@ -373,7 +373,7 @@ TEST_CASE("assignTestIntModulo") {
   REQUIRE(a == 20);
 }
 
-TEST_CASE("addAssignTestIntModulo") {
+TEST_CASE("add assign test int modulo") {
   SubIntModulo a {9};
   SubIntModulo b {20};
   a += b;
@@ -386,7 +386,7 @@ TEST_CASE("addAssignTestIntModulo") {
   REQUIRE(a == 33);
 }
 
-TEST_CASE("subtractAssignTestIntModulo") {
+TEST_CASE("subtract assign test int modulo") {
   SubIntModulo a {20};
   SubIntModulo b {9};
   a -= b;
@@ -399,7 +399,7 @@ TEST_CASE("subtractAssignTestIntModulo") {
   REQUIRE(b == 96);
 }
 
-TEST_CASE("multiplyAssignTestIntModulo") {
+TEST_CASE("multiply assign test int modulo") {
   SubIntModulo a {20};
   SubIntModulo b {3};
   a *= b;
@@ -408,54 +408,54 @@ TEST_CASE("multiplyAssignTestIntModulo") {
   REQUIRE(a == 82);
 }
 
-TEST_CASE("divideAssignTestIntModulo") {
+TEST_CASE("divide assign test int modulo") {
   SubIntModulo a {20};
   SubIntModulo b {3};
   a /= b;
   REQUIRE(a == 6);
 }
 
-TEST_CASE("remainderAssignTestIntModulo") {
+TEST_CASE("remainder assign test int modulo") {
   SubIntModulo a {20};
   SubIntModulo b {3};
   a %= b;
   REQUIRE(a == 2);
 }
 
-TEST_CASE("xorAssignTestIntModulo") {
+TEST_CASE("xor assign test int modulo") {
   SubIntModulo a {0x12};
   SubIntModulo b {0x03};
   a ^= b;
   REQUIRE(a == 0x11);
 }
 
-TEST_CASE("andAssignTestIntModulo") {
+TEST_CASE("and assign test int modulo") {
   SubIntModulo a {0x12};
   SubIntModulo b {0x03};
   a &= b;
   REQUIRE(a == 0x02);
 }
 
-TEST_CASE("orAssignTestIntModulo") {
+TEST_CASE("or assign test int modulo") {
   SubIntModulo a {0x12};
   SubIntModulo b {0x03};
   a |= b;
   REQUIRE(a == 0x13);
 }
 
-TEST_CASE("shiftLeftAssignTestIntModulo") {
+TEST_CASE("shift left assign test int modulo") {
   SubIntModulo a {0x12};
   a <<= 1;
   REQUIRE(a == 0x24);
 }
 
-TEST_CASE("shiftRightAssignTestIntModulo") {
+TEST_CASE("shift right assign test int modulo") {
   SubIntModulo a {0x12};
   a >>= 1;
   REQUIRE(a == 0x09);
 }
 
-TEST_CASE("addTestIntModulo") {
+TEST_CASE("add test int modulo") {
   SubIntModulo a {9};
   SubIntModulo b {20};
   a = a + b;
@@ -470,56 +470,56 @@ TEST_CASE("addTestIntModulo") {
   REQUIRE(a == 29);
 }
 
-TEST_CASE("subtractTestIntModulo") {
+TEST_CASE("subtract test int modulo") {
   SubIntModulo a {20};
   SubIntModulo b {9};
   a = a - b;
   REQUIRE(a == 11);
 }
 
-TEST_CASE("multiplyTestIntModulo") {
+TEST_CASE("multiply test int modulo") {
   SubIntModulo a {20};
   SubIntModulo b {3};
   a = a * b;
   REQUIRE(a == 60);
 }
 
-TEST_CASE("divideTestIntModulo") {
+TEST_CASE("divide test int modulo") {
   SubIntModulo a {20};
   SubIntModulo b {3};
   a = a / b;
   REQUIRE(a == 6);
 }
 
-TEST_CASE("remainderTestIntModulo") {
+TEST_CASE("remainder test int modulo") {
   SubIntModulo a {20};
   SubIntModulo b {3};
   a = a % b;
   REQUIRE(a == 2);
 }
 
-TEST_CASE("xorTestIntModulo") {
+TEST_CASE("xor test int modulo") {
   SubIntModulo a {0x12};
   SubIntModulo b {0x03};
   a = a ^ b;
   REQUIRE(a == 0x11);
 }
 
-TEST_CASE("andTestIntModulo") {
+TEST_CASE("and test int modulo") {
   SubIntModulo a {0x12};
   SubIntModulo b {0x03};
   a = a & b;
   REQUIRE(a == 0x02);
 }
 
-TEST_CASE("orTestIntModulo") {
+TEST_CASE("or test int modulo") {
   SubIntModulo a {0x12};
   SubIntModulo b {0x03};
   a = a | b;
   REQUIRE(a == 0x13);
 }
 
-TEST_CASE("shiftLeftTestIntModulo") {
+TEST_CASE("shift left test int modulo") {
   SubIntModulo a {0x12};
   a = a << 1;
   REQUIRE(a == 0x24);
@@ -527,7 +527,7 @@ TEST_CASE("shiftLeftTestIntModulo") {
   REQUIRE(a == 92);
 }
 
-TEST_CASE("shiftRightTestIntModulo") {
+TEST_CASE("shift right test int modulo") {
   SubIntModulo a {0x12};
   a = a >> 1;
   REQUIRE(a == 0x09);
@@ -535,40 +535,40 @@ TEST_CASE("shiftRightTestIntModulo") {
   REQUIRE(a == 98);
 }
 
-TEST_CASE("equalsTestIntModulo") {
+TEST_CASE("equals test int modulo") {
   SubIntModulo a {9};
   SubIntModulo b {9};
   REQUIRE(a == b);
 }
 
-TEST_CASE("notEqualsTestIntModulo") {
+TEST_CASE("not equals test int modulo") {
   SubIntModulo a {9};
   SubIntModulo b {8};
   REQUIRE(a != b);
 }
 
-TEST_CASE("lessThanTestIntModulo") {
+TEST_CASE("less than test int modulo") {
   SubIntModulo a {8};
   SubIntModulo b {9};
   REQUIRE(a < b);
   REQUIRE(!(a >= b));
 }
 
-TEST_CASE("lessThanEqualToTestIntModulo") {
+TEST_CASE("less than equal to test int modulo") {
   SubIntModulo a {8};
   SubIntModulo b {8};
   REQUIRE(a <= b);
   REQUIRE(!(a > b));
 }
 
-TEST_CASE("greaterThanTestIntModulo") {
+TEST_CASE("greater than test int modulo") {
   SubIntModulo a {8};
   SubIntModulo b {9};
   REQUIRE(b > a);
   REQUIRE(!(b <= a));
 }
 
-TEST_CASE("greaterThanEqualToTestIntModulo") {
+TEST_CASE("greater than equal to test int modulo") {
   SubIntModulo a {8};
   SubIntModulo b {8};
   REQUIRE(a >= b);
@@ -577,36 +577,36 @@ TEST_CASE("greaterThanEqualToTestIntModulo") {
 
 typedef subrange::subrange<subrange::ordinal_range<short, 1, 99>, subrange::saturated_arithmetic> SubIntSaturated;
 
-TEST_CASE("createDefaultTestIntSaturated") {
+TEST_CASE("create default test int saturated") {
   SubIntSaturated a;
   REQUIRE(a == 1);
 }
 
-TEST_CASE("preincrementTestIntSaturated") {
+TEST_CASE("preincrement test int saturated") {
   SubIntSaturated a {9};
   ++a;
   REQUIRE(a == 10);
 }
 
-TEST_CASE("postincrementTestIntSaturated") {
+TEST_CASE("postincrement test int saturated") {
   SubIntSaturated a {9};
   a++;
   REQUIRE(a == 10);
 }
 
-TEST_CASE("predecrementTestIntSaturated") {
+TEST_CASE("predecrement test int saturated") {
   SubIntSaturated a {9};
   --a;
   REQUIRE(a == 8);
 }
 
-TEST_CASE("postdecrementTestIntSaturated") {
+TEST_CASE("postdecrement test int saturated") {
   SubIntSaturated a {9};
   a--;
   REQUIRE(a == 8);
 }
 
-TEST_CASE("assignLiteralTestIntSaturated") {
+TEST_CASE("assign literal test int saturated") {
   SubIntSaturated a {9};
   a = 20;
   REQUIRE(a == 20);
@@ -616,7 +616,7 @@ TEST_CASE("assignLiteralTestIntSaturated") {
   REQUIRE(a == 1);
 }
 
-TEST_CASE("assignTestIntSaturated") {
+TEST_CASE("assign test int saturated") {
   SubIntSaturated a {9};
   SubIntSaturated b {20};
   a = b;
@@ -624,7 +624,7 @@ TEST_CASE("assignTestIntSaturated") {
   REQUIRE(a == 20);
 }
 
-TEST_CASE("addAssignTestIntSaturated") {
+TEST_CASE("add assign test int saturated") {
   SubIntSaturated a {9};
   SubIntSaturated b {20};
   a += b;
@@ -637,7 +637,7 @@ TEST_CASE("addAssignTestIntSaturated") {
   REQUIRE(a == 99);
 }
 
-TEST_CASE("subtractAssignTestIntSaturated") {
+TEST_CASE("subtract assign test int saturated") {
   SubIntSaturated a {20};
   SubIntSaturated b {9};
   a -= b;
@@ -650,7 +650,7 @@ TEST_CASE("subtractAssignTestIntSaturated") {
   REQUIRE(b == 1);
 }
 
-TEST_CASE("multiplyAssignTestIntSaturated") {
+TEST_CASE("multiply assign test int saturated") {
   SubIntSaturated a {20};
   SubIntSaturated b {3};
   a *= b;
@@ -659,54 +659,54 @@ TEST_CASE("multiplyAssignTestIntSaturated") {
   REQUIRE(a == 99);
 }
 
-TEST_CASE("divideAssignTestIntSaturated") {
+TEST_CASE("divide assign test int saturated") {
   SubIntSaturated a {20};
   SubIntSaturated b {3};
   a /= b;
   REQUIRE(a == 6);
 }
 
-TEST_CASE("remainderAssignTestIntSaturated") {
+TEST_CASE("remainder assign test int saturated") {
   SubIntSaturated a {20};
   SubIntSaturated b {3};
   a %= b;
   REQUIRE(a == 2);
 }
 
-TEST_CASE("xorAssignTestIntSaturated") {
+TEST_CASE("xor assign test int saturated") {
   SubIntSaturated a {0x12};
   SubIntSaturated b {0x03};
   a ^= b;
   REQUIRE(a == 0x11);
 }
 
-TEST_CASE("andAssignTestIntSaturated") {
+TEST_CASE("and assign test int saturated") {
   SubIntSaturated a {0x12};
   SubIntSaturated b {0x03};
   a &= b;
   REQUIRE(a == 0x02);
 }
 
-TEST_CASE("orAssignTestIntSaturated") {
+TEST_CASE("or assign test int saturated") {
   SubIntSaturated a {0x12};
   SubIntSaturated b {0x03};
   a |= b;
   REQUIRE(a == 0x13);
 }
 
-TEST_CASE("shiftLeftAssignTestIntSaturated") {
+TEST_CASE("shift left assign test int saturated") {
   SubIntSaturated a {0x12};
   a <<= 1;
   REQUIRE(a == 0x24);
 }
 
-TEST_CASE("shiftRightAssignTestIntSaturated") {
+TEST_CASE("shift right assign test int saturated") {
   SubIntSaturated a {0x12};
   a >>= 1;
   REQUIRE(a == 0x09);
 }
 
-TEST_CASE("addTestIntSaturated") {
+TEST_CASE("add test int saturated") {
   SubIntSaturated a {9};
   SubIntSaturated b {20};
   a = a + b;
@@ -721,56 +721,56 @@ TEST_CASE("addTestIntSaturated") {
   REQUIRE(a == 29);
 }
 
-TEST_CASE("subtractTestIntSaturated") {
+TEST_CASE("subtract test int saturated") {
   SubIntSaturated a {20};
   SubIntSaturated b {9};
   a = a - b;
   REQUIRE(a == 11);
 }
 
-TEST_CASE("multiplyTestIntSaturated") {
+TEST_CASE("multiply test int saturated") {
   SubIntSaturated a {20};
   SubIntSaturated b {3};
   a = a * b;
   REQUIRE(a == 60);
 }
 
-TEST_CASE("divideTestIntSaturated") {
+TEST_CASE("divide test int saturated") {
   SubIntSaturated a {20};
   SubIntSaturated b {3};
   a = a / b;
   REQUIRE(a == 6);
 }
 
-TEST_CASE("remainderTestIntSaturated") {
+TEST_CASE("remainder test int saturated") {
   SubIntSaturated a {20};
   SubIntSaturated b {3};
   a = a % b;
   REQUIRE(a == 2);
 }
 
-TEST_CASE("xorTestIntSaturated") {
+TEST_CASE("xor test int saturated") {
   SubIntSaturated a {0x12};
   SubIntSaturated b {0x03};
   a = a ^ b;
   REQUIRE(a == 0x11);
 }
 
-TEST_CASE("andTestIntSaturated") {
+TEST_CASE("and test int saturated") {
   SubIntSaturated a {0x12};
   SubIntSaturated b {0x03};
   a = a & b;
   REQUIRE(a == 0x02);
 }
 
-TEST_CASE("orTestIntSaturated") {
+TEST_CASE("or test int saturated") {
   SubIntSaturated a {0x12};
   SubIntSaturated b {0x03};
   a = a | b;
   REQUIRE(a == 0x13);
 }
 
-TEST_CASE("shiftLeftTestIntSaturated") {
+TEST_CASE("shift left test int saturated") {
   SubIntSaturated a {0x12};
   a = a << 1;
   REQUIRE(a == 0x24);
@@ -778,7 +778,7 @@ TEST_CASE("shiftLeftTestIntSaturated") {
   REQUIRE(a == 99);
 }
 
-TEST_CASE("shiftRightTestIntSaturated") {
+TEST_CASE("shift right test int saturated") {
   SubIntSaturated a {0x12};
   a = a >> 1;
   REQUIRE(a == 0x09);
@@ -786,40 +786,40 @@ TEST_CASE("shiftRightTestIntSaturated") {
   REQUIRE(a == 1);
 }
 
-TEST_CASE("equalsTestIntSaturated") {
+TEST_CASE("equals test int saturated") {
   SubIntSaturated a {9};
   SubIntSaturated b {9};
   REQUIRE(a == b);
 }
 
-TEST_CASE("notEqualsTestIntSaturated") {
+TEST_CASE("not equals test int saturated") {
   SubIntSaturated a {9};
   SubIntSaturated b {8};
   REQUIRE(a != b);
 }
 
-TEST_CASE("lessThanTestIntSaturated") {
+TEST_CASE("less than test int saturated") {
   SubIntSaturated a {8};
   SubIntSaturated b {9};
   REQUIRE(a < b);
   REQUIRE(!(a >= b));
 }
 
-TEST_CASE("lessThanEqualToTestIntSaturated") {
+TEST_CASE("less than equal to test int saturated") {
   SubIntSaturated a {8};
   SubIntSaturated b {8};
   REQUIRE(a <= b);
   REQUIRE(!(a > b));
 }
 
-TEST_CASE("greaterThanTestIntSaturated") {
+TEST_CASE("greater than test int saturated") {
   SubIntSaturated a {8};
   SubIntSaturated b {9};
   REQUIRE(b > a);
   REQUIRE(!(b <= a));
 }
 
-TEST_CASE("greaterThanEqualToTestIntSaturated") {
+TEST_CASE("greater than equal to test int saturated") {
   SubIntSaturated a {8};
   SubIntSaturated b {8};
   REQUIRE(a >= b);
@@ -831,36 +831,36 @@ typedef subrange::subrange<RangeTraits, subrange::NaN_arithmetic> SubIntNaN;
 
 inline bool isNaN(const SubIntNaN & s) { return subrange::NaN_arithmetic<RangeTraits>::isNaN(s); }
 
-TEST_CASE("createDefaultTestIntNaN") {
+TEST_CASE("create default test int NaN") {
   SubIntNaN a;
   REQUIRE(a == 1);
 }
 
-TEST_CASE("preincrementTestIntNaN") {
+TEST_CASE("preincrement test int NaN") {
   SubIntNaN a {9};
   ++a;
   REQUIRE(a == 10);
 }
 
-TEST_CASE("postincrementTestIntNaN") {
+TEST_CASE("postincrement test int NaN") {
   SubIntNaN a {9};
   a++;
   REQUIRE(a == 10);
 }
 
-TEST_CASE("predecrementTestIntNaN") {
+TEST_CASE("predecrement test int NaN") {
   SubIntNaN a {9};
   --a;
   REQUIRE(a == 8);
 }
 
-TEST_CASE("postdecrementTestIntNaN") {
+TEST_CASE("postdecrement test int NaN") {
   SubIntNaN a {9};
   a--;
   REQUIRE(a == 8);
 }
 
-TEST_CASE("assignLiteralTestIntNaN") {
+TEST_CASE("assign literal test int NaN") {
   SubIntNaN a {9};
   a = 20;
   REQUIRE(a == 20);
@@ -870,7 +870,7 @@ TEST_CASE("assignLiteralTestIntNaN") {
   REQUIRE(isNaN(a));
 }
 
-TEST_CASE("assignTestIntNaN") {
+TEST_CASE("assign test int NaN") {
   SubIntNaN a {9};
   SubIntNaN b {20};
   a = b;
@@ -878,7 +878,7 @@ TEST_CASE("assignTestIntNaN") {
   REQUIRE(a == 20);
 }
 
-TEST_CASE("addAssignTestIntNaN") {
+TEST_CASE("add assign test int NaN") {
   SubIntNaN a {9};
   SubIntNaN b {20};
   a += b;
@@ -891,7 +891,7 @@ TEST_CASE("addAssignTestIntNaN") {
   REQUIRE(isNaN(a));
 }
 
-TEST_CASE("subtractAssignTestIntNaN") {
+TEST_CASE("subtract assign test int NaN") {
   SubIntNaN a {20};
   SubIntNaN b {9};
   a -= b;
@@ -904,7 +904,7 @@ TEST_CASE("subtractAssignTestIntNaN") {
   REQUIRE(isNaN(b));
 }
 
-TEST_CASE("multiplyAssignTestIntNaN") {
+TEST_CASE("multiply assign test int NaN") {
   SubIntNaN a {20};
   SubIntNaN b {3};
   a *= b;
@@ -913,54 +913,54 @@ TEST_CASE("multiplyAssignTestIntNaN") {
   REQUIRE(isNaN(a));
 }
 
-TEST_CASE("divideAssignTestIntNaN") {
+TEST_CASE("divide assign test int NaN") {
   SubIntNaN a {20};
   SubIntNaN b {3};
   a /= b;
   REQUIRE(a == 6);
 }
 
-TEST_CASE("remainderAssignTestIntNaN") {
+TEST_CASE("remainder assign test int NaN") {
   SubIntNaN a {20};
   SubIntNaN b {3};
   a %= b;
   REQUIRE(a == 2);
 }
 
-TEST_CASE("xorAssignTestIntNaN") {
+TEST_CASE("xor assign test int NaN") {
   SubIntNaN a {0x12};
   SubIntNaN b {0x03};
   a ^= b;
   REQUIRE(a == 0x11);
 }
 
-TEST_CASE("andAssignTestIntNaN") {
+TEST_CASE("and assign test int NaN") {
   SubIntNaN a {0x12};
   SubIntNaN b {0x03};
   a &= b;
   REQUIRE(a == 0x02);
 }
 
-TEST_CASE("orAssignTestIntNaN") {
+TEST_CASE("or assign test int NaN") {
   SubIntNaN a {0x12};
   SubIntNaN b {0x03};
   a |= b;
   REQUIRE(a == 0x13);
 }
 
-TEST_CASE("shiftLeftAssignTestIntNaN") {
+TEST_CASE("shift left assign test int NaN") {
   SubIntNaN a {0x12};
   a <<= 1;
   REQUIRE(a == 0x24);
 }
 
-TEST_CASE("shiftRightAssignTestIntNaN") {
+TEST_CASE("shift right assign test int NaN") {
   SubIntNaN a {0x12};
   a >>= 1;
   REQUIRE(a == 0x09);
 }
 
-TEST_CASE("addTestIntNaN") {
+TEST_CASE("add test int NaN") {
   SubIntNaN a {9};
   SubIntNaN b {20};
   a = a + b;
@@ -975,56 +975,56 @@ TEST_CASE("addTestIntNaN") {
   REQUIRE(a == 29);
 }
 
-TEST_CASE("subtractTestIntNaN") {
+TEST_CASE("subtract test int NaN") {
   SubIntNaN a {20};
   SubIntNaN b {9};
   a = a - b;
   REQUIRE(a == 11);
 }
 
-TEST_CASE("multiplyTestIntNaN") {
+TEST_CASE("multiply test int NaN") {
   SubIntNaN a {20};
   SubIntNaN b {3};
   a = a * b;
   REQUIRE(a == 60);
 }
 
-TEST_CASE("divideTestIntNaN") {
+TEST_CASE("divide test int NaN") {
   SubIntNaN a {20};
   SubIntNaN b {3};
   a = a / b;
   REQUIRE(a == 6);
 }
 
-TEST_CASE("remainderTestIntNaN") {
+TEST_CASE("remainder test int NaN") {
   SubIntNaN a {20};
   SubIntNaN b {3};
   a = a % b;
   REQUIRE(a == 2);
 }
 
-TEST_CASE("xorTestIntNaN") {
+TEST_CASE("xor test int NaN") {
   SubIntNaN a {0x12};
   SubIntNaN b {0x03};
   a = a ^ b;
   REQUIRE(a == 0x11);
 }
 
-TEST_CASE("andTestIntNaN") {
+TEST_CASE("and test int NaN") {
   SubIntNaN a {0x12};
   SubIntNaN b {0x03};
   a = a & b;
   REQUIRE(a == 0x02);
 }
 
-TEST_CASE("orTestIntNaN") {
+TEST_CASE("or test int NaN") {
   SubIntNaN a {0x12};
   SubIntNaN b {0x03};
   a = a | b;
   REQUIRE(a == 0x13);
 }
 
-TEST_CASE("shiftLeftTestIntNaN") {
+TEST_CASE("shift left test int NaN") {
   SubIntNaN a {0x12};
   a = a << 1;
   REQUIRE(a == 0x24);
@@ -1032,7 +1032,7 @@ TEST_CASE("shiftLeftTestIntNaN") {
   REQUIRE(isNaN(a));
 }
 
-TEST_CASE("shiftRightTestIntNaN") {
+TEST_CASE("shift right test int NaN") {
   SubIntNaN a {0x12};
   a = a >> 1;
   REQUIRE(a == 0x09);
@@ -1040,40 +1040,40 @@ TEST_CASE("shiftRightTestIntNaN") {
   REQUIRE(isNaN(a));
 }
 
-TEST_CASE("equalsTestIntNaN") {
+TEST_CASE("equals test int NaN") {
   SubIntNaN a {9};
   SubIntNaN b {9};
   REQUIRE(a == b);
 }
 
-TEST_CASE("notEqualsTestIntNaN") {
+TEST_CASE("not equals test int NaN") {
   SubIntNaN a {9};
   SubIntNaN b {8};
   REQUIRE(a != b);
 }
 
-TEST_CASE("lessThanTestIntNaN") {
+TEST_CASE("less than test int NaN") {
   SubIntNaN a {8};
   SubIntNaN b {9};
   REQUIRE(a < b);
   REQUIRE(!(a >= b));
 }
 
-TEST_CASE("lessThanEqualToTestIntNaN") {
+TEST_CASE("less than equal to test int NaN") {
   SubIntNaN a {8};
   SubIntNaN b {8};
   REQUIRE(a <= b);
   REQUIRE(!(a > b));
 }
 
-TEST_CASE("greaterThanTestIntNaN") {
+TEST_CASE("greater than test int NaN") {
   SubIntNaN a {8};
   SubIntNaN b {9};
   REQUIRE(b > a);
   REQUIRE(!(b <= a));
 }
 
-TEST_CASE("greaterThanEqualToTestIntNaN") {
+TEST_CASE("greater than equal to test int NaN") {
   SubIntNaN a {8};
   SubIntNaN b {8};
   REQUIRE(a >= b);
@@ -1093,36 +1093,36 @@ class float_range {
 
 typedef subrange::subrange<float_range> SubFloat;
 
-TEST_CASE("createDefaultTestFloat") {
+TEST_CASE("create default test float") {
   SubFloat a;
   REQUIRE(a == 1.0);
 }
 
-TEST_CASE("preincrementTestFloat") {
+TEST_CASE("preincrement test float") {
   SubFloat a {9.0};
   ++a;
   REQUIRE(a == 10.0);
 }
 
-TEST_CASE("postincrementTestFloat") {
+TEST_CASE("postincrement test float") {
   SubFloat a {9.0};
   a++;
   REQUIRE(a == 10.0);
 }
 
-TEST_CASE("predecrementTestFloat") {
+TEST_CASE("predecrement test float") {
   SubFloat a {9.0};
   --a;
   REQUIRE(a == 8.0);
 }
 
-TEST_CASE("postdecrementTestFloat") {
+TEST_CASE("postdecrement test float") {
   SubFloat a {9.0};
   a--;
   REQUIRE(a == 8.0);
 }
 
-TEST_CASE("assignLiteralTestFloat") {
+TEST_CASE("assign literal test float") {
   SubFloat a {9.0};
   a = 20.0;
   REQUIRE(a == 20.0);
@@ -1130,7 +1130,7 @@ TEST_CASE("assignLiteralTestFloat") {
   //THROWS_EXCEPTION(a = -5.0, subrange::range_error);
 }
 
-TEST_CASE("assignTestFloat") {
+TEST_CASE("assign test float") {
   SubFloat a {9.0};
   SubFloat b {20.0};
   a = b;
@@ -1138,7 +1138,7 @@ TEST_CASE("assignTestFloat") {
   REQUIRE(a == 20.0);
 }
 
-TEST_CASE("addAssignTestFloat") {
+TEST_CASE("add assign test float") {
   SubFloat a {9.0};
   SubFloat b {20.0};
   a += b;
@@ -1150,7 +1150,7 @@ TEST_CASE("addAssignTestFloat") {
   //THROWS_EXCEPTION(a += 200.0, subrange::range_error);
 }
 
-TEST_CASE("subtractAssignTestFloat") {
+TEST_CASE("subtract assign test float") {
   SubFloat a {20.0};
   SubFloat b {9.0};
   a -= b;
@@ -1162,7 +1162,7 @@ TEST_CASE("subtractAssignTestFloat") {
   //THROWS_EXCEPTION(b -= a, subrange::range_error);
 }
 
-TEST_CASE("multiplyAssignTestFloat") {
+TEST_CASE("multiply assign test float") {
   SubFloat a {20.0};
   SubFloat b {3.0};
   a *= b;
@@ -1170,14 +1170,14 @@ TEST_CASE("multiplyAssignTestFloat") {
   //THROWS_EXCEPTION(a *= b, subrange::range_error);
 }
 
-TEST_CASE("divideAssignTestFloat") {
+TEST_CASE("divide assign test float") {
   SubFloat a {20.0};
   SubFloat b {4.0};
   a /= b;
   REQUIRE(a == 5.0);
 }
 
-TEST_CASE("addTestFloat") {
+TEST_CASE("add test float") {
   SubFloat a {9.0};
   SubFloat b {20.0};
   a = a + b;
@@ -1192,61 +1192,61 @@ TEST_CASE("addTestFloat") {
   REQUIRE(a == 29.0);
 }
 
-TEST_CASE("subtractTestFloat") {
+TEST_CASE("subtract test float") {
   SubFloat a {20.0};
   SubFloat b {9.0};
   a = a - b;
   REQUIRE(a == 11.0);
 }
 
-TEST_CASE("multiplyTestFloat") {
+TEST_CASE("multiply test float") {
   SubFloat a {20.0};
   SubFloat b {3.0};
   a = a * b;
   REQUIRE(a == 60.0);
 }
 
-TEST_CASE("divideTestFloat") {
+TEST_CASE("divide test float") {
   SubFloat a {20.0};
   SubFloat b {4.0};
   a = a / b;
   REQUIRE(a == 5.0);
 }
 
-TEST_CASE("equalsTestFloat") {
+TEST_CASE("equals test float") {
   SubFloat a {9.0};
   SubFloat b {9.0};
   REQUIRE(a == b);
 }
 
-TEST_CASE("notEqualsTestFloat") {
+TEST_CASE("not equals test float") {
   SubFloat a {9.0};
   SubFloat b {8.0};
   REQUIRE(a != b);
 }
 
-TEST_CASE("lessThanTestFloat") {
+TEST_CASE("less than test float") {
   SubFloat a {8.0};
   SubFloat b {9.0};
   REQUIRE(a < b);
   REQUIRE(!(a >= b));
 }
 
-TEST_CASE("lessThanEqualToTestFloat") {
+TEST_CASE("less than equal to test float") {
   SubFloat a {8.0};
   SubFloat b {8.0};
   REQUIRE(a <= b);
   REQUIRE(!(a > b));
 }
 
-TEST_CASE("greaterThanTestFloat") {
+TEST_CASE("greater than test float") {
   SubFloat a {8.0};
   SubFloat b {9.0};
   REQUIRE(b > a);
   REQUIRE(!(b <= a));
 }
 
-TEST_CASE("greaterThanEqualToTestFloat") {
+TEST_CASE("greater than equal to test float") {
   SubFloat a {8.0};
   SubFloat b {8.0};
   REQUIRE(a >= b);

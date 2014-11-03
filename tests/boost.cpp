@@ -1,6 +1,6 @@
 //  Unit test for a subrange type template for C++
 //
-//  Copyright (c) 2005, 2010, 2013 Russel Winder
+//  Copyright © 2005, 2010, 2013  Russel Winder
 //
 //  Distributed under the Boost Software License, Version 1.0.  See
 //  http://www.boost.org/LICENSE_1_0.txt.
@@ -12,7 +12,7 @@
  *
  *  <p>This is in serious need of extending with far more test cases.</p>
  *
- *  <p>Copyright (c) 2005, 2010, 2013  Russel Winder.</p>
+ *  <p>Copyright © 2005, 2010, 2013  Russel Winder.</p>
  *
  *  @author Russel Winder
  *  @version 1.3

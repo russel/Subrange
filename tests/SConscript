@@ -1,9 +1,8 @@
 # -*- mode:python; coding:utf-8; -*-
 
-Import('boostEnvironment', 'cuteEnvironment', 'catchEnvironment')
+Import('boostEnvironment', 'catchEnvironment')
 
 boostTest = boostEnvironment.Program('boost.cpp')
-cuteTest = cuteEnvironment.Program('cute.cpp')
 catchTest = catchEnvironment.Program('catch.cpp')
 
-Return('boostTest', 'cuteTest', 'catchTest')
+Return('boostTest', 'catchTest')
