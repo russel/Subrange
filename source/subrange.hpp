@@ -113,8 +113,6 @@
  *  implement them the compiler would find many ambiguous overloads and will not compile the user
  *  code.</p>
  *
- *  <p>This software assumes that the Boost library is installed on your system.</p>
- *
  *  <p>The contents of this file were inspired by the boost::CV::constrained_value type by Jeff
  *  Garland (part of the Boost date-time package), the subrange_type by Brian Martin (see
  *  http://aspn.activestate.com/ASPN/Mail/Message/boost/2042908 or
