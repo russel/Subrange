@@ -45,7 +45,7 @@
  *
  *  <pre>
  *      class float_1_99
- *       public :
+ *       public:
  *        typedef float value_type;
  *        typedef subrange::range_error exception_type;
  *        static float min () { return 1.0; }
@@ -60,7 +60,7 @@
  *  any class that implements
  *
  *  <pre>
- *      typename RangeTraits::value_type checkValue(const typename RangeTraits::value_type proposed)
+ *      typename RangeTraits::value_type checkValue(typename RangeTraits::value_type const proposed)
  *  </pre>
  *
  *  can be used.</p>
@@ -70,7 +70,7 @@
  *
  *  <pre>
  *      type TwoDigitWholeNumber = 1..99;
- *      var t : TwoDigitWholeNumber;
+ *      var t: TwoDigitWholeNumber;
  *      t = 21; // OK
  *      t = t * 8; // ERROR outside range 1..99
  *  </pre>

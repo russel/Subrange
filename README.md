@@ -10,7 +10,7 @@ Unfortunately, because templates cannot take parameters of non-ordinal types, th
 for creating the traits classes for all floating point ranges.  An example traits class is:
 
     class float_1_99
-     public :
+     public:
       typedef float value_type;
       typedef subrange::range_error exception_type;
       static float min () { return 1.0; }
@@ -22,7 +22,7 @@ are provided which should cover all policies actually needed.  *exception_on_err
 *range_error* if it needs to throw an exception.  Should a new policy be needed that any class that
 implements
 
-    typename RangeTraits::value_type checkValue(const typename RangeTraits::value_type proposed)
+    typename RangeTraits::value_type checkValue(typename RangeTraits::value_type const proposed)
 
 can be used.
 
@@ -30,13 +30,13 @@ Algol68, Pascal and Ada but not C++ (or Java) have the concept of a subrange typ
 language. So in Pascal, for example, you can write the following:
 
     type TwoDigitWholeNumber = 1..99;
-    var t : TwoDigitWholeNumber;
+    var t: TwoDigitWholeNumber;
     t = 21; // OK
     t = t * 8; // ERROR outside range 1..99
 
 with any assignment to variable *t* that is not in the range 1..99 generating a runtime error.  Many
 compilers allow the range checks to be switched off but using this facility is clearly a bad idea as it
-subverts the whole point of the subrange type &mdash; even if all the unit tests pass!
+subverts the whole point of the subrange type — even if all the unit tests pass!
 
 *subrange* provides this subrange type facility in C++.  The class can be used with any host type that has a
 total ordering, i.e. the integer types, the floating point types and enumerated types.  However the
@@ -46,7 +46,7 @@ class using the range specified in the traits class.  It is possible to specify 
 but this would be somewhat not sensible.  So, using *subrange*, the above Pascal example can be encoded in
 C++ as:
 
-    typedef subrange::subrange&lt;subrange::ordinal_range&lt;short, 1, 99>> TwoDigitWholeNumber;
+    typedef subrange::subrange<subrange::ordinal_range<short, 1, 99>> TwoDigitWholeNumber;
     TwoDigitWholeNumber t;
     t = 21; // OK
     t *= 8; // ERROR outside range 1..99
@@ -54,7 +54,7 @@ C++ as:
 This type is a subrange type where the exception *subrange::range_error* is thrown on any bounds violation.
 Policies for modulo arithmetic, saturated arithmetic and NaN arithmetic are provided, so:
 
-    subrange::subrange&lt;subrange::ordinal_range&lt;short, 0, 8>, subrange::modulo_arithmetic> Modulo8;
+    subrange::subrange<subrange::ordinal_range<short, 0, 8>, subrange::modulo_arithmetic> Modulo8;
 
 is a type for modulo 8 arithmetic.
 
