@@ -9,16 +9,7 @@ osName = unameResult[0]
 archName = unameResult[4].replace('sun4u', 'sparc')
 archName = re.sub('i.86', 'ix86', archName)
 
-# Alisander is an ancient MacBook running OS X Snow Leopard which has 64-bit processor but Snow Leopard
-# always runs 32-bit due to the boot PROM being 32-bit.  Must use 64-bit libraries for the MacPort installed
-# GCC 4.9.
-
-if unameResult[1].startswith('alisander'):
-    archName = 'x86_64'
-
 homeDirectory = os.environ['HOME']
-libDirectory = homeDirectory + '/lib.' + osName + '.' + archName
-
 buildDirectory = 'build_' + osName + '_' + archName
 
 docsConfigFile = 'doxygen.conf'
